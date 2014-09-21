@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ar.uba.fi.mileem.SearchActivity" >
+
+     <item android:id="@+id/action_refresh"
+          android:icon="@drawable/ic_action_refresh"
+          android:title="@string/cargar_mas"
+          android:showAsAction="ifRoom" />
+     <item android:id="@+id/action_chart"
+          android:icon="@drawable/ic_chart"
+          android:title="@string/ver_estadisticas"
+          android:showAsAction="ifRoom" />
+	<item android:id="@+id/action_sort"
+          android:icon="@drawable/ic_action_sort_by_size"
+          android:title="@string/ordenar_por"
+          android:showAsAction="ifRoom" >
+           <menu>
+            <item android:id="@+id/sort_destacados"
+                  android:title="@string/sort_destacadas"
+                  />
+            
+            <item android:id="@+id/sort_precio_mayor"
+                  android:title="@string/sort_precio_mayor"
+                  />
+            
+            <item android:id="@+id/sort_precio_menor"
+                  android:title="@string/sort_precio_menor"
+                  />
+            
+            <item android:id="@+id/sort_recientes"
+                  android:title="@string/sort_recientes"
+                  />
+            
+        </menu>
+          </item>
+</menu>

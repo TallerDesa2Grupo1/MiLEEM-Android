@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EditTextComponent">
+        <attr name="label" format="string" localization="suggested" />
+        <attr name="name" format="string|reference" localization="suggested" />
+        <attr name="hint" format="string|reference" localization="suggested" />
+        <attr name="android:inputType"/>
+    </declare-styleable>
+    
+     <declare-styleable name="BooleanComponent">
+        <attr name="label"  />
+        <attr name="name" />
+    </declare-styleable>
+
+     <declare-styleable name="CustomComponentsGroup">
+        <attr name="label"  />
+    </declare-styleable>
+
+</resources> 

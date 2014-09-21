@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Switch xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switch_id"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:checked="true"
+    android:textColor="@color/apptheme_color"
+    android:textOff="@string/upp_no"
+    android:textOn="@string/upp_si"
+    android:thumb="@drawable/apptheme_switch_inner_holo_light"
+    android:track="@drawable/apptheme_switch_bg_holo_light" >
+
+</Switch>

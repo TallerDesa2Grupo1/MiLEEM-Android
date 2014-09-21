@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MiLEEM</string>
+    <string name="dummy">dummy</string>
+    <string name="action_settings">Settings</string>
+    <string name="seleccione_barrio">Seleccione un barrio</string>
+    <string name="con_zonas">Incluir zonas aledañas</string>
+    <string name="advanced_search">Búsqueda Avanzada</string>
+    <string name="simple_search">Buscar</string>
+    <string name="dolar">U$S</string>
+    <string name="peso">$</string>
+    <string name="moneda">Moneda</string>
+    <string name="precio">Precio</string>
+    <string name="precio_desde">desde</string>
+    <string name="precio_hasta">hasta</string>
+    <string name="a_estrenar">A estrenar</string>
+    <string name="sup_total">Superficie total</string>
+    <string name="sup_cubierta">Superficie cubierta</string>
+    <string name="sup_unidad">m2</string>
+    <string name="antiguedad">Antiguedad</string>
+    <string name="antiguedad_unidad">años</string>
+    <string name="expensas">Expensas</string>
+    <string name="expensas_unidad">$</string>
+    <string name="distribucion">Distribución</string>
+    <string name="upp_si">SI</string>
+    <string name="upp_no">NO</string>
+    <string name="otras_caracteristicas">Otras características</string>
+    <string name="caracteristicas_generales">Características generales</string>
+    <string name="cant_ambientes">Ambientes</string>
+    <string name="mas_de">mas de</string>
+    <string name="banos">Baños</string>
+    <string name="balcon">Con balcón</string>
+    <string name="en_suite">Dormitorio en suite</string>
+    <string name="ver_estadisticas">Ver estadísticas</string>
+    <string name="ordenar_por">Ordenar por</string>
+    <string name="cargar_mas">Cargar mas resultados</string>
+    <string name="sort_destacadas">Destacadas</string>
+    <string name="sort_precio_menor">Menor Precio</string>
+    <string name="sort_precio_mayor">Mayor Precio</string>
+    <string name="sort_recientes">Más Recientes</string>
+
+</resources>
