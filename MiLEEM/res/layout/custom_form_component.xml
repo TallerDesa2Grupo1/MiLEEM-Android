@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
-        <TextView
+        <ar.uba.fi.mileem.custom.CustomTextView
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:text="@string/dummy"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/apptheme_color" />
 
         <LinearLayout
@@ -24,7 +24,7 @@
 
         </LinearLayout>
 
-        <CheckBox
+        <ar.uba.fi.mileem.custom.CustomCheckBox
             android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

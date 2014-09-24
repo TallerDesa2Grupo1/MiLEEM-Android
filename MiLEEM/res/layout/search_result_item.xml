@@ -29,7 +29,7 @@
                android:scaleType="centerInside"
                android:src="@drawable/placeholder" />
 
-    <TextView
+    <ar.uba.fi.mileem.custom.CustomTextView
         android:id="@+id/titulo_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/apptheme_color" />
 
-          <TextView
+          <ar.uba.fi.mileem.custom.CustomTextView
               android:id="@+id/subtitulo_item"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
               android:text="Descripcion Corta Un poco mas larga sarasa dasa asda fakljada"
               android:textAppearance="?android:attr/textAppearanceMedium" />
 
-          <TextView
+          <ar.uba.fi.mileem.custom.CustomTextView
               android:id="@+id/item_price"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"

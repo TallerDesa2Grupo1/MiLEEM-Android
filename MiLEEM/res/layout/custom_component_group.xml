@@ -9,16 +9,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <TextView
+        <ar.uba.fi.mileem.custom.CustomTextView
             android:id="@+id/titulo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/dummy"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/apptheme_color" />
 
-        <CheckBox
+        <ar.uba.fi.mileem.custom.CustomCheckBox
             android:id="@+id/check_all"
             style="@drawable/apptheme_btn_check_holo_light"
             android:layout_width="wrap_content"
