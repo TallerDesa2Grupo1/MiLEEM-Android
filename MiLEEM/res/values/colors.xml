@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
      <color name="disabled">#cccccc</color>
+      <color name="app_color_contrast">#ffffff</color>
+      <color name="highlighted_publication_background">#fce4ec</color>
 </resources>

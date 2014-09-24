@@ -14,6 +14,7 @@
 
      <declare-styleable name="CustomComponentsGroup">
         <attr name="label"  />
+        <attr name="categories" format="string" localization="suggested" />
     </declare-styleable>
 
 </resources> 

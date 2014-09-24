@@ -58,14 +58,16 @@ public class SearchViewAdapter extends ArrayAdapter<PublicationResult> {
       
       TextView titulo = (TextView) rowView.findViewById(R.id.titulo_item);
       TextView subtitulo = (TextView) rowView.findViewById(R.id.subtitulo_item);
-      String s = getItem(position).toString();
-      
+      TextView price= (TextView) rowView.findViewById(R.id.item_price);
+      PublicationResult item = getItem(position); 
+      String s = item.toString();
+      rowView.setBackgroundResource(((item.isHighlighted())?R.color.highlighted_publication_background:android.R.color.background_light));
       titulo.setText(s);
-      subtitulo.setText(s);
+      subtitulo.setText(item.getNeighborhood());
+      price.setText(item.getPrice());
       return rowView;
     }
   
-
 
   public boolean hasStableIds() {
     return true;

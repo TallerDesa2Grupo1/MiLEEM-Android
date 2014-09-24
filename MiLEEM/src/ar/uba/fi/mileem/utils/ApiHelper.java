@@ -2,6 +2,9 @@ package ar.uba.fi.mileem.utils;
 
 import com.loopj.android.http.*;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import ar.uba.fi.mileem.Config;
 
 public class ApiHelper {
@@ -22,7 +25,7 @@ public class ApiHelper {
 	
 		
 	public void search( RequestParams params,JsonHttpResponseHandler responseHandler){
-		doPost(Config.BASEURL + Config.PUBLICACIONES_CONTROLLER + "search", responseHandler);
+		doGet(Config.BASEURL + Config.PUBLICACIONES_CONTROLLER , responseHandler);
 	} 
 	
 	public void getPropertyTypes(JsonHttpResponseHandler responseHandler){
@@ -41,6 +44,7 @@ public class ApiHelper {
 		doGet(url,null, responseHandler);
 	}
 	
+	@SuppressWarnings("unused")
 	private void doPost(String url, JsonHttpResponseHandler responseHandler){
 		doPost(url,null, responseHandler);
 	}
@@ -68,4 +72,13 @@ public class ApiHelper {
 				client.post(url, rq, responseHandler);
 		}
 	}
+	
+	public  boolean isNetworkAvailable(Context ctx) {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+	
+	
 }

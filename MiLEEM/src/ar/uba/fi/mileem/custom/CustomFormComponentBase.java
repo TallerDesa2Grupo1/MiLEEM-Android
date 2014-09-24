@@ -1,6 +1,8 @@
 package ar.uba.fi.mileem.custom;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import ar.uba.fi.mileem.models.FormField;
+import ar.uba.fi.mileem.models.SearchForm;
 import ar.uba.fi.mileem.R;
 
 public abstract class CustomFormComponentBase extends LinearLayout{
@@ -32,7 +35,7 @@ public abstract class CustomFormComponentBase extends LinearLayout{
 	
 	private void initComponent(Context context){
 		
-		 label = (TextView) findViewById(R.id.label);
+			label = (TextView) findViewById(R.id.label);
 		    container = (LinearLayout)findViewById(R.id.container);
 		    stateCheck = (CheckBox) findViewById(R.id.state);
 		    
@@ -45,7 +48,7 @@ public abstract class CustomFormComponentBase extends LinearLayout{
 			});
 	}
 	
-	
+
 	public CustomFormComponentBase(Context context) {
 	    this(context, null);
 	  }
@@ -53,8 +56,14 @@ public abstract class CustomFormComponentBase extends LinearLayout{
 	protected LinearLayout getContainer(){
 		return container;
 	}
+	
 	private void stateChange(boolean isChecked){
 		label.setTextColor((isChecked)?getResources().getColor(R.color.apptheme_color):getResources().getColor(R.color.disabled));
+		if(isChecked){
+			SearchForm.setField(getName(), getValue());
+		}else {
+			SearchForm.removeField(getName());
+		}
 	}
 	
 	public void setChecked(boolean isChecked){
@@ -63,16 +72,27 @@ public abstract class CustomFormComponentBase extends LinearLayout{
 	
 	public abstract void onEnabledChange(boolean enabled);
 	
-	public  Object getValue(){
-		return null;
-	};
+	public final void onInputValueChange(){
+		
+		SearchForm.setField(getName(), getValue());
+		
+	}
+	
+	public abstract  Object getValue();
+	
+	public abstract  void setValue(Object value);
+	
+	public abstract void saveInputValue(Editor e);
+	
+	public abstract void restoreValue(SharedPreferences sharedpreferences);
+		 
 	
 	public void setName(FormField ff){
 		this.name = ff;
 	}
 	
-	public String getName(){
-		return (name != null)?name.toString():"";
+	public FormField getName(){
+		return name;
 	}
 
 	public boolean isEnabled(){
@@ -82,7 +102,6 @@ public abstract class CustomFormComponentBase extends LinearLayout{
 	public void setLabel(String labelText){
 		 label.setText(labelText);
 	}
-	
 	
 
 }

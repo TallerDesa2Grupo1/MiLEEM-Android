@@ -36,7 +36,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="25dp"
         android:layout_toRightOf="@+id/item_preview"
-        android:text="Titulo"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Titulo muy largo para entrar en una sola filas"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/apptheme_color" />
 
@@ -46,8 +48,22 @@
               android:layout_height="wrap_content"
               android:layout_alignLeft="@+id/titulo_item"
               android:layout_below="@+id/titulo_item"
-              android:text="Descripcion Corta"
+              android:ellipsize="end"
+              android:maxLines="3"
+              android:text="Descripcion Corta Un poco mas larga sarasa dasa asda fakljada"
               android:textAppearance="?android:attr/textAppearanceMedium" />
+
+          <TextView
+              android:id="@+id/item_price"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentRight="true"
+              android:layout_marginTop="5dp"
+              android:text="$100.000"
+              android:textAppearance="?android:attr/textAppearanceMedium"
+              android:textColor="@color/apptheme_color"
+              android:textStyle="bold" />
 
     </RelativeLayout>
 

@@ -16,10 +16,12 @@
         android:orientation="vertical" >
         
         <ar.uba.fi.mileem.custom.CustomComponentsGroup
+            android:id="@+id/general_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             edit:label="@string/caracteristicas_generales" >
+
         <ar.uba.fi.mileem.custom.ExchangeComponent
             android:id="@+id/monedaComponent1"
             android:layout_width="match_parent"
@@ -36,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="numberDecimal"
-            edit:hint="@string/sup_unidad"
+            edit:hint="@string/mas_de"
             edit:label="@string/sup_cubierta" />
 
         <ar.uba.fi.mileem.custom.EditTextComponent
@@ -45,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="numberDecimal"
-            edit:hint="@string/sup_unidad"
+            edit:hint="@string/mas_de"
             edit:label="@string/sup_total" />
 
         <ar.uba.fi.mileem.custom.EditTextComponent
@@ -54,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            edit:hint="@string/antiguedad_unidad"
+            edit:hint="@string/menos_de"
             edit:label="@string/antiguedad" />
 
         <ar.uba.fi.mileem.custom.EditTextComponent
@@ -63,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            edit:hint="@string/expensas_unidad"
+            edit:hint="@string/menos_de"
             edit:label="@string/expensas" />
 
         <ar.uba.fi.mileem.custom.BooleanComponent
@@ -79,10 +81,12 @@
 		    android:layout_marginBottom="@dimen/activity_vertical_margin"
 		    android:layout_marginTop="@dimen/activity_vertical_margin" />
 
-        <ar.uba.fi.mileem.custom.CustomComponentsGroup
+        <ar.uba.fi.mileem.custom.CustomComponentsGroup
+            android:id="@+id/extra_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            edit:categories="1,2"
             edit:label="@string/otras_caracteristicas" >
 
             <ar.uba.fi.mileem.custom.EditTextComponent

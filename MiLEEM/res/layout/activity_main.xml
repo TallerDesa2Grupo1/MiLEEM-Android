@@ -3,13 +3,15 @@
     style="@style/AppTheme"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="ar.uba.fi.mileem.MainActivity" >
+    android:background="@color/apptheme_color"
+    tools:context="ar.uba.fi.sandbox.MainActivity" >
 
     <LinearLayout
         style="@style/AppTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="@dimen/activity_vertical_margin" >
@@ -21,19 +23,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:text="@string/app_name"
-            android:textColor="@color/apptheme_color"
+            android:textColor="@color/app_color_contrast"
             android:textSize="45dp" />
-
-        <Button
-            android:id="@+id/buttonGo"
-            style="@style/ButtonAppTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Entrar"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/header_footer_top_bottom_padding"
+        android:text="@string/app_version"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/app_color_contrast" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/item_price"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
