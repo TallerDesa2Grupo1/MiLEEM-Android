@@ -108,18 +108,22 @@
                 edit:label="@string/banos" />
 
             <ar.uba.fi.mileem.custom.BooleanComponent
-                android:id="@+id/booleanComponent2"
-                edit:name="balcon"
+                android:id="@+id/booleanComponent3"
+                edit:name="con_cochera"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                edit:label="@string/balcon" />
+                edit:label="@string/con_cochera" >
+
+            </ar.uba.fi.mileem.custom.BooleanComponent>
 
             <ar.uba.fi.mileem.custom.BooleanComponent
-                android:id="@+id/booleanComponent3"
+                android:id="@+id/booleanComponent4"
                 edit:name="en_suite"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                edit:label="@string/en_suite" />
+                android:layout_height="match_parent" 
+                edit:label="@string/en_suite" >
+            </ar.uba.fi.mileem.custom.BooleanComponent>
+
         </ar.uba.fi.mileem.custom.CustomComponentsGroup>
     </LinearLayout>
 

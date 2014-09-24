@@ -17,8 +17,8 @@ public enum FormField {
     OLD("antiguedad"),
     BRAND_NEW("a_estrenar"),
     BATHROOM("banos"),
-    BALCONY("balcon"),
     SUITE_ROOM("en_suite"),
+    GARAGE("con_cochera"),
     
     ;
     

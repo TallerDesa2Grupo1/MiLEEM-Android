@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
 public class SearchForm {
 	private static FormField[] requireds = {FormField.NEIGHBORHOOD ,FormField.SURROUNDING_AREAS,FormField.PROPERTY_TYPE, FormField.OPERATION_TYPE };
 	private static FormField[] optionals = {FormField.EXCHANGE ,FormField.PRICE ,FormField.COVERED_AREA,FormField.TOTAL_AREA ,FormField.BRAND_NEW ,FormField.OLD, FormField.EXPENSE };
-	private static FormField[][] fields_by_category = {{},{FormField.ROOMS,FormField.BATHROOM,FormField.BALCONY, FormField.SUITE_ROOM},{},{}}; 
+	private static FormField[][] fields_by_category = {{},{FormField.ROOMS,FormField.BATHROOM, FormField.SUITE_ROOM, FormField.GARAGE},{},{}}; 
 	
 	private static HashMap<FormField, Object> form =  getDefaults();
 	
