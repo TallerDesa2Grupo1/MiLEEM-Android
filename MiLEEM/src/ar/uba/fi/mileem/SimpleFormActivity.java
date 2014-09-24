@@ -7,9 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -26,6 +29,7 @@ import ar.uba.fi.mileem.utils.DialogFactory;
 import ar.uba.fi.mileem.utils.JsonCacheHttpResponseHandler;
 import ar.uba.fi.mileem.utils.OperationTypeSpinnerAdapter;
 import ar.uba.fi.mileem.utils.SpinnerAdapter;
+import ar.uba.fi.mileem.utils.TypefaceSpan;
 import ar.uba.fi.mileem.R;
 
 public class SimpleFormActivity extends Activity {
@@ -46,9 +50,20 @@ public class SimpleFormActivity extends Activity {
 		btnSearch =  (Button) findViewById(R.id.simple_search);
 		btnAdvancedSearch =  (Button) findViewById(R.id.advanced_search);
 		
+		 setTitle();
+		
 		setListeners();
 	}
 	
+	
+	protected void setTitle(){
+		SpannableString s = new SpannableString(getString(R.string.app_name));
+		s.setSpan(new TypefaceSpan(this, "Roboto-Light.ttf"), 0, s.length(),
+		        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		// Update the action bar title with the TypefaceSpan instance
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(s);
+	}
 	
 	protected void onStart() {
 		super.onResume();

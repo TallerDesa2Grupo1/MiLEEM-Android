@@ -21,7 +21,7 @@ public class EditTextComponent extends CustomFormComponentBase {
 
 	public EditTextComponent(Context context, AttributeSet attrs) {
 		super(context,attrs);
-		input = new EditText(context);
+		input = new CustomEditText(context);
 		
 		if(!isInEditMode())
 			initComponents(attrs);

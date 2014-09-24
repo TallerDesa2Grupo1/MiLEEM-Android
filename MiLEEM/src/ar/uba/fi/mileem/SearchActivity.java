@@ -2,21 +2,21 @@ package ar.uba.fi.mileem;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -35,6 +35,7 @@ import ar.uba.fi.mileem.utils.ApiHelper;
 import ar.uba.fi.mileem.utils.DialogFactory;
 import ar.uba.fi.mileem.utils.SearchCache;
 import ar.uba.fi.mileem.utils.SearchViewAdapter;
+import ar.uba.fi.mileem.utils.TypefaceSpan;
 import ar.uba.fi.mileem.R;
 
 public class SearchActivity extends ListActivity {
@@ -81,7 +82,7 @@ public class SearchActivity extends ListActivity {
 
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
-
+		setTitle();
 		filter = SortFilter.HIGHLIGHTED;
 		mListItems = SearchCache.getInstance().getResults();
 		mAdapter = new SearchViewAdapter(this, mListItems);
@@ -89,6 +90,15 @@ public class SearchActivity extends ListActivity {
 		resetSearch();
 	}
 
+	
+	protected void setTitle(){
+		SpannableString s = new SpannableString(getString(R.string.app_name));
+		s.setSpan(new TypefaceSpan(this, "Roboto-Light.ttf"), 0, s.length(),
+		        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		// Update the action bar title with the TypefaceSpan instance
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(s);
+	}
 	
 	private void resetSearch() {
 		if(ApiHelper.getInstance().isNetworkAvailable(this)){
@@ -159,12 +169,22 @@ public class SearchActivity extends ListActivity {
 	}
 
 	
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.search_results_menu, menu);
+//		
+//		return super.onCreateOptionsMenu(menu);
+//	}
+
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.search_results_menu, menu);
+		
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	    
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {

@@ -10,7 +10,7 @@
             android:orientation="vertical"
             android:padding="10dp" >
 
-        <TextView
+        <ar.uba.fi.mileem.custom.CustomTextView
             android:id="@+id/titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:textColor="#ffffff"
             android:textStyle="bold" />
 
-        <TextView
+        <ar.uba.fi.mileem.custom.CustomTextView
             android:id="@+id/texto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff" />
 
-        <Button
+        <ar.uba.fi.mileem.custom.CustomButton
             android:id="@+id/cerrar"
             style="@style/ButtonAppTheme"
             android:layout_width="wrap_content"

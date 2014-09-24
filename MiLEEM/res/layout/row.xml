@@ -9,13 +9,12 @@
     android:paddingLeft="5dp"
     android:paddingTop="5dp" >
 
-    <TextView
+    <ar.uba.fi.mileem.custom.CustomTextView
         android:id="@+id/opcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dip"
         android:padding="2dip"
-        android:text="Opcion"
         android:textSize="@dimen/texto_spinner" />
 
 </RelativeLayout>

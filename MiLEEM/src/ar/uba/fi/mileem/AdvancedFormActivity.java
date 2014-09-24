@@ -1,8 +1,11 @@
 package ar.uba.fi.mileem;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +14,7 @@ import ar.uba.fi.mileem.custom.CustomComponentsGroup;
 import ar.uba.fi.mileem.models.SearchForm;
 import ar.uba.fi.mileem.utils.ApiHelper;
 import ar.uba.fi.mileem.utils.DialogFactory;
+import ar.uba.fi.mileem.utils.TypefaceSpan;
 
 public class AdvancedFormActivity extends Activity {
 	
@@ -22,7 +26,16 @@ public class AdvancedFormActivity extends Activity {
 		setContentView(R.layout.advanced_search);
 		 general_options = (CustomComponentsGroup) findViewById(R.id.general_options);
 		 extra_options = (CustomComponentsGroup) findViewById(R.id.extra_options);
-		
+		 setTitle();
+	}
+	
+	protected void setTitle(){
+		SpannableString s = new SpannableString(getString(R.string.app_name));
+		s.setSpan(new TypefaceSpan(this, "Roboto-Light.ttf"), 0, s.length(),
+		        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		// Update the action bar title with the TypefaceSpan instance
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(s);
 	}
 
 	@Override
