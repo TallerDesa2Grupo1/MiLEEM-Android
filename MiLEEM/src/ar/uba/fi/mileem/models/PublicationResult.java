@@ -2,7 +2,6 @@ package ar.uba.fi.mileem.models;
 
 import java.util.Date;
 import java.util.Random;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +29,7 @@ public class PublicationResult {
 	public String toString() {
 			return getAddress();
 	}
-
+	
 	public String getAddress(){
 		return optProperty().optString("address");
 	} 
@@ -47,6 +46,7 @@ public class PublicationResult {
 		return  publication.optBoolean("highlight");
 	}
 
+	
 	public String getNeighborhood(){
 		try{
 			return  optProperty().optJSONObject("location").optString("name");
