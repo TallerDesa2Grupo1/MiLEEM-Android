@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -28,6 +29,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import ar.uba.fi.mileem.models.FormField;
 import ar.uba.fi.mileem.models.PublicationResult;
 import ar.uba.fi.mileem.models.SearchForm;
 import ar.uba.fi.mileem.models.SortFilter;
@@ -75,7 +77,7 @@ public class SearchActivity extends ListActivity {
 					}
 				});
 
-		mPullRefreshListView.setMode(Mode.BOTH);
+		mPullRefreshListView.setMode(Mode.PULL_FROM_END);
 		mPullRefreshListView.setShowIndicator(true);
 		mPullRefreshListView.setShowViewWhileRefreshing(true);
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
@@ -83,7 +85,6 @@ public class SearchActivity extends ListActivity {
 		// Need to use the Actual ListView when registering for Context Menu
 		registerForContextMenu(actualListView);
 		setTitle();
-		filter = SortFilter.HIGHLIGHTED;
 		mListItems = SearchCache.getInstance().getResults();
 		mAdapter = new SearchViewAdapter(this, mListItems);
 		actualListView.setAdapter(mAdapter);
@@ -128,9 +129,13 @@ public class SearchActivity extends ListActivity {
 		refreshEnabled = false;
 		mPullRefreshListView.setRefreshing(true);
 		RequestParams rq = SearchForm.getAsRequestParams();
-		rq.put("offset", SearchCache.getInstance().getResults().size());
-		rq.put("timestamp", timestamp);
-		rq.put("sort",filter.toString());
+		rq.put(FormField.OFFSET.toString(), SearchCache.getInstance().getResults().size());
+		//rq.put(FormField.TIMESTAMP.toString(), timestamp);
+		if(filter!=null)
+			rq.put(FormField.SORT.toString(),filter.toString());
+		rq.put(FormField.NEIGHBORHOOD.toString(), SearchForm.getField(FormField.NEIGHBORHOOD));
+		rq.put(FormField.OPERATION_TYPE.toString(), SearchForm.getField(FormField.OPERATION_TYPE));
+		rq.put(FormField.PROPERTY_TYPE.toString(), SearchForm.getField(FormField.PROPERTY_TYPE));
 		ApiHelper.getInstance().search(rq, new JsonHttpResponseHandler() {
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONArray response) {
@@ -194,7 +199,7 @@ public class SearchActivity extends ListActivity {
 		case R.id.sort_destacados:
 			Toast.makeText(this, R.string.sort_destacadas, Toast.LENGTH_SHORT)
 					.show();
-			filter = SortFilter.HIGHLIGHTED;
+			filter = null;
 			break;
 		case R.id.sort_precio_mayor:
 			Toast.makeText(this, R.string.sort_precio_mayor, Toast.LENGTH_SHORT)
@@ -248,12 +253,14 @@ public class SearchActivity extends ListActivity {
 
 		@Override
 		protected ArrayList<PublicationResult> doInBackground(Void... params) {
-			response.length();
 
-			/* Codigo que simula la carga de datos */
 			ArrayList<PublicationResult> list = new ArrayList<PublicationResult>();
-				for (int i = 0; i < 5; ++i) {
-					list.add(new PublicationResult());
+				for (int i = 0; i < response.length(); ++i) {
+					try {
+						list.add(new PublicationResult(response.getJSONObject(i)));
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 				}
 			
 			 SearchCache.getInstance().addResults(list);

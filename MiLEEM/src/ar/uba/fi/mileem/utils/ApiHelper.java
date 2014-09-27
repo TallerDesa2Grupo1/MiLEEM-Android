@@ -25,7 +25,7 @@ public class ApiHelper {
 	
 		
 	public void search( RequestParams params,JsonHttpResponseHandler responseHandler){
-		doGet(Config.BASEURL + Config.PUBLICACIONES_CONTROLLER , responseHandler);
+		doGet(Config.BASEURL + Config.PUBLICACIONES_CONTROLLER ,params, responseHandler);
 	} 
 	
 	public void getPropertyTypes(JsonHttpResponseHandler responseHandler){

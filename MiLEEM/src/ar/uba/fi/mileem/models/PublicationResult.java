@@ -2,7 +2,7 @@ package ar.uba.fi.mileem.models;
 
 import java.util.Date;
 import java.util.Random;
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,12 +26,16 @@ public class PublicationResult {
 		}
 	}
 	
+	public PublicationResult(JSONObject jo){
+		this.publication = jo;
+	}
+	
 	public String toString() {
 			return getAddress();
 	}
 	
 	public String getAddress(){
-		return optProperty().optString("address");
+		return publication.optString("address");
 	} 
 	
 	public String getPrice(){
@@ -49,30 +53,30 @@ public class PublicationResult {
 	
 	public String getNeighborhood(){
 		try{
-			return  optProperty().optJSONObject("location").optString("name");
+			return  publication.optJSONObject("location").optString("name");
 		}catch( Exception e){
 			return "";
 		}
 	}
 	
 	public String getMainImage(){
-		JSONArray ja = optProperty().optJSONArray("images");
-		if(ja != null){
-			return ja.optString(0);
-		}
-		return "";
+//		JSONArray ja = optProperty().optJSONArray("images");
+//		if(ja != null){
+//			return ja.optString(0);
+//		}
+		return "http://www.rentnbaires.com/JUS/alquiler-temporario-departamentos/images/calo1.jpg";
 	} 
 	
-	private JSONObject optProperty(){
-		JSONArray ja =  publication.optJSONArray("property");
-		if(ja != null ){
-			JSONObject jo = ja.optJSONObject(0);
-			if(jo == null){
-				return new JSONObject();
-			}
-			return jo;
-		}
-		return new JSONObject();
-	}
+//	private JSONObject optProperty(){
+//		JSONArray ja =  publication.optJSONArray("property");
+//		if(ja != null ){
+//			JSONObject jo = ja.optJSONObject(0);
+//			if(jo == null){
+//				return new JSONObject();
+//			}
+//			return jo;
+//		}
+//		return new JSONObject();
+//	}
 	
 }
