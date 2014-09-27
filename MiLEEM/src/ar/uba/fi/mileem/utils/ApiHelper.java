@@ -32,6 +32,10 @@ public class ApiHelper {
 		doGet(Config.BASEURL + Config.TIPO_PROPIEDADES_CONTROLLER, responseHandler);
 	} 
 	
+	public void getOperationTypes(JsonHttpResponseHandler responseHandler){
+		doGet(Config.BASEURL + Config.TIPO_OPERACIONES_CONTROLLER, responseHandler);
+	} 
+	
 	public void getNeighborhoodsByCity(JsonHttpResponseHandler responseHandler){
 		 getNeighborhoodsByCity(Config.CAPITAL_FEDERAL_ID,responseHandler);
 	}

@@ -18,6 +18,7 @@ public class OperationTypeSpinnerAdapter extends ArrayAdapter<SimpleEntry<String
         options.add(new SimpleEntry<String, String>("1","Alquiler"));
         options.add(new SimpleEntry<String, String>("2","Venta"));
         options.add(new SimpleEntry<String, String>("3","Alquiler Temporal"));
+        options.add(new SimpleEntry<String, String>("4","Tiempo Compartido"));
         this.addAll(options);
         
     }
