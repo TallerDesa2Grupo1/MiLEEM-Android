@@ -2,5 +2,5 @@
 <resources>
      <color name="disabled">#cccccc</color>
       <color name="app_color_contrast">#ffffff</color>
-      <color name="highlighted_publication_background">#fce4ec</color>
+      <color name="highlighted_publication_background">#fce6ed</color>
 </resources>

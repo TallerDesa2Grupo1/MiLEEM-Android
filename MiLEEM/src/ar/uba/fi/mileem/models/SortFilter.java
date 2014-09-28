@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SortFilter {
-    PRICE_ASC("price asc"),
-    PRICE_DESC("price desc"),
-    HIGHLIGHTED("highlighted"),
-    PUBLICATION_DATE_DESC("start_date desc"),
-    PUBLICATION_DATE_ASC("start_date asc"),
-    ;
-    
+    PRICE_ASC("scaled_price"),
+    PRICE_DESC("scaled_price"),
+    HIGHLIGHTED("publication_type"),
+    PUBLICATION_DATE_DESC("publication_date"),
+    PUBLICATION_DATE_ASC("publication_date"),
+    ;   
 
     private final String text;
 

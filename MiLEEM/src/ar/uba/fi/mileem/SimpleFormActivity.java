@@ -164,7 +164,7 @@ public class SimpleFormActivity extends Activity {
                     int arg2, long arg3) {
             	Object item = operationtypeSpinner.getSelectedItem();
             	if( item instanceof SimpleEntry<?, ?>){
-            		Object value = (( SimpleEntry<?, ?>)item).getValue();
+            		Object value = (( SimpleEntry<?, ?>)item).getKey();
             		SearchForm.setField(FormField.OPERATION_TYPE,value);
             	}
 

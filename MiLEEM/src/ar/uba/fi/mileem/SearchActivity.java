@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import ar.uba.fi.mileem.models.FormField;
 import ar.uba.fi.mileem.models.PublicationResult;
@@ -45,11 +46,13 @@ public class SearchActivity extends ListActivity {
 	private List<PublicationResult> mListItems;
 	private PullToRefreshListView mPullRefreshListView;
 	private ArrayAdapter<PublicationResult> mAdapter;
-	private SortFilter filter = null;
+	private SortFilter filter = SortFilter.HIGHLIGHTED;
+	private String order = "DESC";
 	private long timestamp = 0;
 	private boolean refreshEnabled = true;
 	private Object adapterLock = new Object();
-
+	private TextView emptyView = null;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,7 @@ public class SearchActivity extends ListActivity {
 					}
 				});
 
-		mPullRefreshListView.setMode(Mode.PULL_FROM_END);
+		mPullRefreshListView.setMode(Mode.PULL_FROM_END );
 		mPullRefreshListView.setShowIndicator(true);
 		mPullRefreshListView.setShowViewWhileRefreshing(true);
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
@@ -88,6 +91,9 @@ public class SearchActivity extends ListActivity {
 		mListItems = SearchCache.getInstance().getResults();
 		mAdapter = new SearchViewAdapter(this, mListItems);
 		actualListView.setAdapter(mAdapter);
+		emptyView = (TextView) findViewById(R.id.emptyText);
+		mPullRefreshListView.setEmptyView(findViewById(R.id.emptyLayout));
+		mPullRefreshListView.setScrollEmptyView(true);
 		resetSearch();
 	}
 
@@ -104,7 +110,7 @@ public class SearchActivity extends ListActivity {
 	private void resetSearch() {
 		if(ApiHelper.getInstance().isNetworkAvailable(this)){
 			if(refreshEnabled){
-				timestamp = System.currentTimeMillis();
+				timestamp = System.currentTimeMillis()/1000;
 				SearchCache.getInstance().clearResults();
 				synchronized (adapterLock) {
 					mAdapter.notifyDataSetChanged();
@@ -126,13 +132,16 @@ public class SearchActivity extends ListActivity {
 	
 	
 	private void searchMoreResults() {
+		emptyView.setText(R.string.pull_to_refresh_refreshing_label);
 		refreshEnabled = false;
 		mPullRefreshListView.setRefreshing(true);
 		RequestParams rq = SearchForm.getAsRequestParams();
 		rq.put(FormField.OFFSET.toString(), SearchCache.getInstance().getResults().size());
-		//rq.put(FormField.TIMESTAMP.toString(), timestamp);
-		if(filter!=null)
+		rq.put(FormField.TIMESTAMP.toString(), timestamp);
+		if(filter!=null){
 			rq.put(FormField.SORT.toString(),filter.toString());
+		}
+		rq.put(FormField.ORDER.toString(),order);
 		rq.put(FormField.NEIGHBORHOOD.toString(), SearchForm.getField(FormField.NEIGHBORHOOD));
 		rq.put(FormField.OPERATION_TYPE.toString(), SearchForm.getField(FormField.OPERATION_TYPE));
 		rq.put(FormField.PROPERTY_TYPE.toString(), SearchForm.getField(FormField.PROPERTY_TYPE));
@@ -148,6 +157,7 @@ public class SearchActivity extends ListActivity {
 					String responseString, Throwable throwable) {
 				super.onFailure(statusCode, headers, responseString, throwable);
 				Log.e("searchMoreResults", "onFailure");
+				emptyView.setText(R.string.connection_error);
 				restoreFlags();
 			}
 			
@@ -157,6 +167,7 @@ public class SearchActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 				Log.e("searchMoreResults", "onFailure2");
+				emptyView.setText(R.string.connection_error);
 				restoreFlags();
 			}
 			
@@ -166,6 +177,7 @@ public class SearchActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 				Log.e("searchMoreResults", "onFailure3");
+				emptyView.setText(R.string.connection_error);
 				restoreFlags();
 				
 			}
@@ -199,22 +211,26 @@ public class SearchActivity extends ListActivity {
 		case R.id.sort_destacados:
 			Toast.makeText(this, R.string.sort_destacadas, Toast.LENGTH_SHORT)
 					.show();
-			filter = null;
+			filter = SortFilter.HIGHLIGHTED;
+			order ="DESC";
 			break;
 		case R.id.sort_precio_mayor:
 			Toast.makeText(this, R.string.sort_precio_mayor, Toast.LENGTH_SHORT)
 					.show();
 			filter = SortFilter.PRICE_DESC;
+			order ="DESC";
 			break;
 		case R.id.sort_precio_menor:
 			Toast.makeText(this, R.string.sort_precio_menor, Toast.LENGTH_SHORT)
 					.show();
 			filter = SortFilter.PRICE_ASC;
+			order ="ASC";
 			break;
 		case R.id.sort_recientes:
 			Toast.makeText(this, R.string.sort_recientes, Toast.LENGTH_SHORT)
 					.show();
 			filter = SortFilter.PUBLICATION_DATE_DESC;
+			order ="DESC";
 			break;
 		default:
 			return false;
@@ -264,6 +280,9 @@ public class SearchActivity extends ListActivity {
 				}
 			
 			 SearchCache.getInstance().addResults(list);
+			 if(SearchCache.getInstance().getResults().size()==0){
+					emptyView.setText("No se encontraron resultados =(");
+			 }
 			 return null;
 		}
 

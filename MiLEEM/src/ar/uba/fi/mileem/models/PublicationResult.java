@@ -1,33 +1,38 @@
 package ar.uba.fi.mileem.models;
 
-import java.util.Date;
-import java.util.Random;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ar.uba.fi.mileem.Config;
 
 
+/*
+ * 
+ * {
+"Publication":{
+	"images_url":"encoded json array",
+	"currency":"ARS",
+	"publication_type":"1",
+	"address":"ddsd 34",
+	"rooms":"34",
+	"total_area":"34",
+	"neighborhood":"Agronom\u00eda",
+	"operation_type":"Venta",
+	"property_type":"Casa",
+	"scaled_price":"234524"
+	}
+}
+ * */
 
 public class PublicationResult {
 	
 	int height;
 	JSONObject publication = null;
 	
-	public PublicationResult(){
 		
-		Random r=new Random();
-		height = (r.nextInt(1000));
-		String json = "{  \"id\": 5,  \"price_with_currency\": \"$ 100."+height+"\",  \"highlight\": "+((height%2==0)?"false":"true")+",  \"property\": [    {      \"address\": \"Dr E Finochietto 850\",      \"characteristic_instances\": [],      \"images\": [  \"http://www.alquilerentaturista.com.ar/apartamentos/buenosairesg.jpg\",\t\t  \"http://www.rentnbaires.com/JUS/alquiler-temporario-departamentos/images/calo1.jpg\",\t\t  \"http://www.alquiler-temporario.com/imagenes/alquiler-temporario-departamento-1-dormitorio-argentina-cordoba/GetAttachment7.jpg\",\t\t  \"http://imganuncios.mitula.net/alquiler_de_03_departamentos_de_estreno_96752207889417804.jpg\",],      \"videos\": [\"https://www.youtube.com/watch?v=-F_9fgtEKYg\"],      \"property_type\": {        \"id\": 1,        \"name\": \"Casa\"      },      \"location\": {        \"id\": 2,        \"name\": \"Belgrano\"      }    }  ],  \"user_id\": 1}";
-		try {
-			publication = new JSONObject(json);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public PublicationResult(JSONObject jo){
-		this.publication = jo;
+		this.publication = jo.optJSONObject("Publication");
 	}
 	
 	public String toString() {
@@ -38,45 +43,60 @@ public class PublicationResult {
 		return publication.optString("address");
 	} 
 	
+	public String getDescription(){
+		return getNeighborhood() +'\n'+ getRooms() + getTotalArea();
+	} 
+	
 	public String getPrice(){
-		return publication.optString("price_with_currency");
+		return ((publication.optString("currency").equals("ARS"))?"$":"u$d") + " "+publication.optString("price");
 	}
 	
-	public Date getPublicationDate(){
-		return new Date();
-	}
 	
 	public Boolean isHighlighted(){
-		return  publication.optBoolean("highlight");
+		return  !publication.optString("publication_type").equals("1");
 	}
 
 	
 	public String getNeighborhood(){
 		try{
-			return  publication.optJSONObject("location").optString("name");
+			return  publication.optString("neighborhood");
 		}catch( Exception e){
 			return "";
 		}
 	}
 	
+	public String getRooms(){
+		String rooms = "";
+		try{
+			rooms =  publication.optString("rooms");
+		}catch( Exception e){
+		}
+		return (rooms.equals("null"))?"":rooms+" Amb.";
+	}
+	
+	public String getTotalArea(){
+		String area = "";
+		try{
+			area =  publication.optString("total_area");
+		}catch( Exception e){
+		}
+		return (area.equals(""))?"":" "+area+" m2";
+	}
+	
+	
 	public String getMainImage(){
-//		JSONArray ja = optProperty().optJSONArray("images");
-//		if(ja != null){
-//			return ja.optString(0);
-//		}
-		return "http://www.rentnbaires.com/JUS/alquiler-temporario-departamentos/images/calo1.jpg";
+		String imgs = publication.optString("images_url");
+		JSONArray ja=null;
+		try {
+			ja = new JSONArray(imgs);
+		} catch (JSONException e) {
+		}
+		if(ja != null && ja.length()>0){
+			return Config.SITEBASEURL + ja.optString(0);
+		}
+		return null;
 	} 
 	
-//	private JSONObject optProperty(){
-//		JSONArray ja =  publication.optJSONArray("property");
-//		if(ja != null ){
-//			JSONObject jo = ja.optJSONObject(0);
-//			if(jo == null){
-//				return new JSONObject();
-//			}
-//			return jo;
-//		}
-//		return new JSONObject();
-//	}
+	
 	
 }

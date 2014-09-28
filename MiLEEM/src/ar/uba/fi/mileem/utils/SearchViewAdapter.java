@@ -54,7 +54,7 @@ public class SearchViewAdapter extends ArrayAdapter<PublicationResult> {
 	    PublicationResult publication = publications.get(position);
 		if (publication != null) {
 			viewHolder.txTitle.setText(publication.toString());
-			viewHolder.txSubTitle.setText(publication.getNeighborhood());
+			viewHolder.txSubTitle.setText(publication.getDescription());
 			viewHolder.txPrice.setText(publication.getPrice());
 		}
 			

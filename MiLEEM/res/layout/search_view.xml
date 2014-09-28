@@ -21,5 +21,22 @@
         ptr:ptrHeaderSubTextColor="@color/apptheme_color"
         ptr:ptrHeaderTextColor="@color/apptheme_color" />
 
+<RelativeLayout
+    android:id="@+id/emptyLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="5dp"
+    android:gravity="top" >
     
+<ar.uba.fi.mileem.custom.CustomTextView
+    android:id="@+id/emptyText"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:padding="5dp"
+    android:text="@string/pull_to_refresh_from_bottom_refreshing_label"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textColor="@color/apptheme_color" />
+
+</RelativeLayout>    
 </RelativeLayout>
