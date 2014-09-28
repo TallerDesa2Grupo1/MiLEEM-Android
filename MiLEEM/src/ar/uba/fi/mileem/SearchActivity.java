@@ -280,15 +280,16 @@ public class SearchActivity extends ListActivity {
 				}
 			
 			 SearchCache.getInstance().addResults(list);
-			 if(SearchCache.getInstance().getResults().size()==0){
-					emptyView.setText("No se encontraron resultados =(");
-			 }
+			
 			 return null;
 		}
 
 		@Override
 		protected void onPostExecute(ArrayList<PublicationResult> results) {
 			synchronized (adapterLock) {
+				 if(SearchCache.getInstance().getResults().size()==0){
+						emptyView.setText("No se encontraron resultados =(");
+				 }
 				mAdapter.notifyDataSetChanged();
 			}
 			// Call onRefreshComplete when the list has been refreshed.
