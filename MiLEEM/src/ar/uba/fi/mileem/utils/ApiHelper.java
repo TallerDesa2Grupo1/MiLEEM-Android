@@ -23,7 +23,10 @@ public class ApiHelper {
 		INSTANCE;
 	}
 	
-		
+	public void getPublication(String id, JsonHttpResponseHandler responseHandler){
+		doGet(Config.BASEURL + Config.PUBLICACION_CONTROLLER+"/"+id, responseHandler);
+	} 	
+	
 	public void search( RequestParams params,JsonHttpResponseHandler responseHandler){
 		doGet(Config.BASEURL + Config.PUBLICACIONES_CONTROLLER ,params, responseHandler);
 	} 

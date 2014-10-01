@@ -5,7 +5,8 @@
      <item android:id="@+id/action_refresh"
           android:icon="@drawable/ic_action_refresh"
           android:title="@string/cargar_mas"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="ifRoom"
+           />
      <item android:id="@+id/action_chart"
           android:icon="@drawable/ic_chart"
           android:title="@string/ver_estadisticas"

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import ar.uba.fi.mileem.ContactFragment;
 import ar.uba.fi.mileem.DetailsFragment;
+import ar.uba.fi.mileem.MapFragment;
 import ar.uba.fi.mileem.PicturesFragment;
 import ar.uba.fi.mileem.VideosFragment;
 
@@ -30,6 +31,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			return new VideosFragment();
 		case 3:
 			// Top Rated fragment activity
+			return new MapFragment();
+		case 4:
+			// Top Rated fragment activity
 			return new ContactFragment();
 	
 		}
@@ -40,7 +44,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		// get item count - equal to number of tabs
-		return 4;
+		return 5;
 	}
 
 }

@@ -95,6 +95,11 @@ public class PublicationResult {
 			return Config.SITEBASEURL + ja.optString(0);
 		}
 		return null;
+	}
+
+	public String getId() {
+		
+		return publication.optString("id");
 	} 
 	
 	

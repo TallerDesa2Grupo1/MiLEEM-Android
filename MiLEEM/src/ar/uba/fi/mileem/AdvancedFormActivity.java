@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
@@ -36,6 +37,7 @@ public class AdvancedFormActivity extends Activity {
 		// Update the action bar title with the TypefaceSpan instance
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(s);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -57,6 +59,9 @@ public class AdvancedFormActivity extends Activity {
 		case R.id.action_search:
 			openSearch();
 			return true;
+		 case android.R.id.home:
+	         NavUtils.navigateUpFromSameTask(this);
+	         return true;
 		}
 		return false;
 	}

@@ -106,6 +106,7 @@ public class SearchActivity extends ListActivity {
 		// Update the action bar title with the TypefaceSpan instance
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(s);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	private void resetSearch() {
@@ -186,15 +187,7 @@ public class SearchActivity extends ListActivity {
 
 	}
 
-	
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		MenuInflater inflater = getMenuInflater();
-//		inflater.inflate(R.menu.search_results_menu, menu);
-//		
-//		return super.onCreateOptionsMenu(menu);
-//	}
 
-	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.search_results_menu, menu);
@@ -233,6 +226,9 @@ public class SearchActivity extends ListActivity {
 			filter = SortFilter.PUBLICATION_DATE_DESC;
 			order ="DESC";
 			break;
+		 case android.R.id.home:
+	         finish();
+	         return true;
 		default:
 			return false;
 		}
@@ -302,7 +298,11 @@ public class SearchActivity extends ListActivity {
 	
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
+		PublicationResult selectedPublication = (PublicationResult) getListView().getItemAtPosition(position);
 		Intent i = new Intent(SearchActivity.this, PublicationActivity.class);
+		Bundle b = new Bundle();
+		b.putString(Config.PUBLICATION_ID, selectedPublication.getId());
+		i.putExtras(b);		
 		SearchActivity.this.startActivity(i);
 	}
 

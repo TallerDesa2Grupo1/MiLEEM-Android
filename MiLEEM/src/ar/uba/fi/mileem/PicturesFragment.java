@@ -2,6 +2,7 @@ package ar.uba.fi.mileem;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ public class PicturesFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_pictures, container, false);
-		
+		Log.e(this.toString(), "oncreateview");
 		return rootView;
 	}
 

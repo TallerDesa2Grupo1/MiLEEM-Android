@@ -1,13 +1,24 @@
 package ar.uba.fi.mileem;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
+import ar.uba.fi.mileem.utils.ApiHelper;
+import ar.uba.fi.mileem.utils.JsonCacheHttpResponseHandler;
 import ar.uba.fi.mileem.utils.TabsPagerAdapter;
 import ar.uba.fi.mileem.utils.TypefaceSpan;
 
@@ -18,20 +29,22 @@ public class PublicationActivity extends FragmentActivity  implements
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
 	// Tab titles
-	private String[] tabs = { "Detalles", "Fotos", "Videos","Contacto" };
-
+	private String[] tabs = { "Detalles", "Fotos", "Videos","Mapa","Contacto" };
+	private String id = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.publication_activity);
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 		// Adding Tabs
 		 setTitleAndTabs();
@@ -55,6 +68,11 @@ public class PublicationActivity extends FragmentActivity  implements
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+		
+		Bundle b = getIntent().getExtras();
+		id = b.getString(Config.PUBLICATION_ID);
+		findPublicationInfo();
+		
 	}
 	protected void setTitleAndTabs(){
 		SpannableString s = new SpannableString(getString(R.string.app_name));
@@ -70,7 +88,56 @@ public class PublicationActivity extends FragmentActivity  implements
 		}
 
 	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.publication_view_menu, menu);
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_refresh:
+			findPublicationInfo();
+			return true;
+		case R.id.action_share:
+			Toast.makeText(this, R.string.compartir, Toast.LENGTH_SHORT).show();
+			return true;
+		case R.id.action_chart:
+			Toast.makeText(this, R.string.ver_estadisticas, Toast.LENGTH_SHORT).show();
+			return true;
+		 case android.R.id.home:
+	         NavUtils.navigateUpFromSameTask(this);
+	         return true;
+		}
+		return false;
+	}
 
+	
+	private void findPublicationInfo(){
+		ApiHelper.getInstance().getPublication(id, new JsonCacheHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+			}
+			
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONArray errorResponse) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+		});
+	}
+	
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
