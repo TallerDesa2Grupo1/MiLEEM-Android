@@ -73,8 +73,8 @@ public class EditTextComponent extends CustomFormComponentBase {
 
 	@Override
 	public void restoreValue(SharedPreferences sharedpreferences) {
-		setValue(sharedpreferences.getString(getName().toString(), ""));
 		setChecked(sharedpreferences.getBoolean(getName().toString()+"_check", true));
+		setValue(sharedpreferences.getString(getName().toString(), ""));
 	}
 
 }

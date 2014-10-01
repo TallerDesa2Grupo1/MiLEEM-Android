@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.CheckBox;
@@ -73,8 +74,13 @@ public abstract class CustomFormComponentBase extends LinearLayout{
 	public abstract void onEnabledChange(boolean enabled);
 	
 	public final void onInputValueChange(){
-		
-		SearchForm.setField(getName(), getValue());
+		if(isEnabled()){
+			SearchForm.setField(getName(), getValue());
+			Log.e(getName().toString(), "Se salva en form");
+		}
+		else{
+			Log.e(getName().toString(), "No salva en form xq esta inactivo");
+		}
 		
 	}
 	

@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
 public class SearchForm {
 	private static FormField[] requireds = {FormField.NEIGHBORHOOD ,FormField.SURROUNDING_AREAS,FormField.PROPERTY_TYPE, FormField.OPERATION_TYPE };
 	private static FormField[] optionals = {FormField.EXCHANGE ,FormField.PRICE ,FormField.COVERED_AREA,FormField.TOTAL_AREA ,FormField.BRAND_NEW ,FormField.OLD, FormField.EXPENSE };
-	private static FormField[][] fields_by_category = {{},{FormField.ROOMS,FormField.BATHROOM, FormField.SUITE_ROOM, FormField.GARAGE},{},{}}; 
+	private static FormField[][] fields_by_category = {{},{FormField.ROOMS,FormField.BATHROOM, FormField.SUITE_ROOM, FormField.GARAGE},{FormField.ROOMS,FormField.BATHROOM, FormField.SUITE_ROOM, FormField.GARAGE},{}}; 
 	
 	private static HashMap<FormField, Object> form =  getDefaults();
 	
@@ -30,12 +30,12 @@ public class SearchForm {
 	}
 
 	public static void cleanInvalidFields(boolean is_advanced){
-		 int categoty = Integer.parseInt(getSelectedCategory());
+		 int category = Integer.parseInt(getSelectedCategory());
 		 Collection<FormField> collection = new ArrayList<FormField>();
 		 collection.addAll(Arrays.asList(requireds));
 		 if(is_advanced){
 			 collection.addAll(Arrays.asList(optionals));
-			 collection.addAll(Arrays.asList(fields_by_category[categoty]));
+			 collection.addAll(Arrays.asList(fields_by_category[category]));
 		 }
 		 Object[] keys = form.keySet().toArray();
 		 for (int i = 0; i < keys.length; i++) {
@@ -73,6 +73,7 @@ public class SearchForm {
 		case 4:
 		case 5:
 		case 6:
+		case 7:
 			return "2";
 		default:
 			return "3";
