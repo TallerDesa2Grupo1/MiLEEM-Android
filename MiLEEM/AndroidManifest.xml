@@ -31,7 +31,7 @@
           <activity android:name="AdvancedFormActivity" android:theme="@style/AppTheme" android:configChanges="orientation|keyboardHidden|screenSize"></activity>
         <activity android:name="SimpleFormActivity" android:configChanges="orientation|keyboardHidden|screenSize"></activity>
         <activity android:name="SearchActivity" android:configChanges="orientation|keyboardHidden|screenSize"></activity>
-        <activity android:name="SwipeRefreshActivity"></activity>
+        <activity android:name="PublicationActivity" android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 
 </manifest>

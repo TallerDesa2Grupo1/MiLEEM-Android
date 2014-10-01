@@ -14,6 +14,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import android.app.ActionBar;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -298,5 +299,11 @@ public class SearchActivity extends ListActivity {
 		}
 	}
 
+	
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Intent i = new Intent(SearchActivity.this, PublicationActivity.class);
+		SearchActivity.this.startActivity(i);
+	}
 
 }
