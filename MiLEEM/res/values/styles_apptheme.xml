@@ -54,7 +54,6 @@
   <style name="TabTextAppTheme2">
 	  <item name="android:textColor">#ffffff</item>
       <item name="android:textSize">12sp</item>
-      <item name="android:textStyle">bold</item>
       <!-- v14 <item name="android:textAllCaps">true</item> -->
       <item name="android:ellipsize">marquee</item>
       <item name="android:maxLines">2</item>
@@ -97,7 +96,5 @@
         <item name="android:backgroundSplit">@color/apptheme_color</item>
       <item name="android:icon">@drawable/ic_action_logors</item>
   </style>
-  
-   
 
 </resources>

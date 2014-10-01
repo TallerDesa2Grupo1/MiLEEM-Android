@@ -46,7 +46,7 @@
     
     <item name="android:actionBarTabTextStyle">@style/TabTextAppTheme2</item>
     <item name="android:actionBarTabStyle">@style/TabAppTheme2</item>
-    
+    <item name="android:selectableItemBackground">@drawable/actionbar_icon_background</item>
 
   </style>
 
