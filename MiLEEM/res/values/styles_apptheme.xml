@@ -21,6 +21,7 @@
       <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
   </style>
 
+   <!-- indicador color letras color -->
   <style name="TabAppTheme">
       <item name="android:gravity">center_horizontal</item>
       <item name="android:paddingLeft">16dip</item>
@@ -32,8 +33,29 @@
   </style>
 
   <style name="TabTextAppTheme" >
-	  <item name="android:textColor">#ffffff</item>
+	  <item name="android:textColor">@color/apptheme_color</item>
       <item name="android:textSize">@dimen/mini_text</item>
+      <item name="android:ellipsize">marquee</item>
+      <item name="android:maxLines">2</item>
+      <item name="android:maxWidth">180dip</item>
+  </style>
+  
+  <!-- indicador blanco letras blancas -->
+   <style name="TabAppTheme2">
+      <item name="android:gravity">center_horizontal</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
+      <item name="android:background">@drawable/apptheme2_tab_indicator_holo</item>
+      <item name="android:layout_width">0dip</item>
+      <item name="android:layout_weight">1</item>
+      <item name="android:minWidth">80dip</item>
+  </style>
+
+  <style name="TabTextAppTheme2">
+	  <item name="android:textColor">#ffffff</item>
+      <item name="android:textSize">12sp</item>
+      <item name="android:textStyle">bold</item>
+      <!-- v14 <item name="android:textAllCaps">true</item> -->
       <item name="android:ellipsize">marquee</item>
       <item name="android:maxLines">2</item>
       <item name="android:maxWidth">180dip</item>
@@ -71,7 +93,7 @@
   
    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
           <item name="android:background">@color/apptheme_color</item>
-        <item name="android:backgroundStacked">@color/apptheme_color</item>
+        <item name="android:backgroundStacked">@color/stacked_actionbar_background</item>
         <item name="android:backgroundSplit">@color/apptheme_color</item>
       <item name="android:icon">@drawable/ic_action_logors</item>
   </style>

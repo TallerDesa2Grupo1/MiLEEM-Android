@@ -33,7 +33,7 @@
                 android:value="ar.uba.fi.mileem.SimpleFormActivity" /></activity>
         <activity android:name="SimpleFormActivity" android:configChanges="orientation|keyboardHidden|screenSize"></activity>
         <activity android:name="SearchActivity" android:configChanges="orientation|keyboardHidden|screenSize"></activity>
-        <activity android:name="PublicationActivity"  android:configChanges="orientation|keyboardHidden|screenSize" android:uiOptions="splitActionBarWhenNarrow">
+        <activity android:name="PublicationActivity"  android:uiOptions="splitActionBarWhenNarrow">
               <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ar.uba.fi.mileem.SearchActivity" />
