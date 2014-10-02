@@ -27,6 +27,12 @@ public class MapFragment extends SupportMapFragment {
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater arg0, ViewGroup arg1, Bundle arg2) {
 		View v = super.onCreateView(arg0, arg1, arg2);
 		initMap();
@@ -38,9 +44,11 @@ public class MapFragment extends SupportMapFragment {
 		settings.setAllGesturesEnabled(true);
 		settings.setMyLocationButtonEnabled(false);
 
-		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(mPosFija, 18));
+		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(mPosFija, 14));
 		getMap().addMarker(
 				new MarkerOptions().position(mPosFija));
 						
 	}
+	
+	
 }
