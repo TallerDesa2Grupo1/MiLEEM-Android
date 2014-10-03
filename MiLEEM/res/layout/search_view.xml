@@ -18,6 +18,7 @@
         android:headerDividersEnabled="false"
         android:showDividers="middle|end"
         android:smoothScrollbar="true"
+         android:background="@color/feed_bg"
         ptr:ptrHeaderSubTextColor="@color/apptheme_color"
         ptr:ptrHeaderTextColor="@color/apptheme_color" />
 

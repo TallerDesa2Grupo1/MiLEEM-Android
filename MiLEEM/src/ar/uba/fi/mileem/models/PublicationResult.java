@@ -44,7 +44,7 @@ public class PublicationResult {
 	} 
 	
 	public String getDescription(){
-		return getNeighborhood() +'\n'+ getRooms() + getTotalArea();
+		return getNeighborhood() +' '+ getRooms() + getTotalArea();
 	} 
 	
 	public String getPrice(){
