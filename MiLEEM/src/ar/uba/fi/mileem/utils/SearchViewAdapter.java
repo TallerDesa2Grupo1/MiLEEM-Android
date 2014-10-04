@@ -10,8 +10,6 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import ar.uba.fi.mileem.R;
 import ar.uba.fi.mileem.custom.CustomTextView;
 import ar.uba.fi.mileem.models.PublicationResult;
@@ -74,18 +72,7 @@ public class SearchViewAdapter extends ArrayAdapter<PublicationResult> {
 		                  scale.setInterpolator(new OvershootInterpolator());
 		                  imageView.startAnimation(scale);
 		              }
-		              LinearLayout.LayoutParams params = (LayoutParams) imageView.getLayoutParams();
-		                 int  bWidth = loadedBitmap.getWidth();
-                       int bHeight = loadedBitmap.getHeight();
-		                  if (bWidth == 0 || bHeight == 0)
-		                      return;
-		           
-		                  int swidth = imageView.getWidth();
-		                  int new_height = 0;
-		                  new_height = swidth * bHeight / bWidth;
-		                  params.width = swidth;
-		                  params.height = new_height;
-		                  imageView.setLayoutParams(params);
+		     
 		          }});
 		}else{
 			viewHolder.bigImgPublication.setVisibility(View.GONE);

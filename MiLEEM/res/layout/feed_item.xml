@@ -65,15 +65,15 @@
             android:text="Descripcion Corta Un poco mas larga sarasa dasa asda fakljada"
             android:textAppearance="?android:attr/textAppearanceMedium" />
  
-        <ImageView
+        <ar.uba.fi.mileem.custom.FeedImageView
             android:id="@+id/big_image"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="@dimen/feed_item_profile_info_padd"
             android:background="@color/white"
-            android:cropToPadding="false"
-            android:scaleType="fitCenter"
+             android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
             android:src="@drawable/placeholder"
             android:visibility="visible" />
         

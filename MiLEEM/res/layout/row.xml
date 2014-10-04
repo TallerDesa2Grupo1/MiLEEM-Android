@@ -17,4 +17,5 @@
         android:padding="2dip"
         android:textSize="@dimen/texto_spinner" />
 
+
 </RelativeLayout>
