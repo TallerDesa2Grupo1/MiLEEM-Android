@@ -6,9 +6,13 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -106,6 +110,7 @@ public class PublicationActivity extends FragmentActivity  implements
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_refresh:
+			Toast.makeText(this, R.string.cargando, Toast.LENGTH_SHORT).show();
 			findPublicationInfo();
 			return true;
 		case R.id.action_share:
@@ -124,7 +129,6 @@ public class PublicationActivity extends FragmentActivity  implements
 	
 	private void findPublicationInfo(){
 		if(getPublication() == null){
-			Toast.makeText(this, R.string.cargando, Toast.LENGTH_SHORT).show();
 			ApiHelper.getInstance().getPublication(id, new JsonCacheHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers,
@@ -183,5 +187,20 @@ public class PublicationActivity extends FragmentActivity  implements
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 	}
 
+	 private static final int REQ_START_STANDALONE_PLAYER = 1;
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		    super.onActivityResult(requestCode, resultCode, data);
+		    if (requestCode == REQ_START_STANDALONE_PLAYER && resultCode != RESULT_OK) {
+		      YouTubeInitializationResult errorReason =
+		          YouTubeStandalonePlayer.getReturnedInitializationResult(data);
+		      if (errorReason.isUserRecoverableError()) {
+		        errorReason.getErrorDialog(this, 0).show();
+		      } else {
+		        String errorMessage =
+		            String.format(getString(R.string.error_player), errorReason.toString());
+		        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+		      }
+		    }
+		  }
 
 }
