@@ -1,5 +1,8 @@
 package ar.uba.fi.mileem.models;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.json.JSONObject;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -76,7 +79,22 @@ public class PublicationFullResult extends PublicationResult {
 			public LatLng getCoords(){
 				return new LatLng(-34.6204561,-58.365235);
 			}
+
+			public String getVideoUrl() {
+				return "https://www.youtube.com/watch?v=FIn59oZ9buU";
+			}
 	
+			public String getVideoCode(){
+				URI uri;
+				try {
+					uri = new URI(getVideoUrl());
+					return uri.getRawQuery().replace("v=", "");
+				} catch (URISyntaxException e) {
+					e.printStackTrace();
+				}
+
+				return "";
+			}
 	
 
 }
