@@ -3,28 +3,22 @@ package ar.uba.fi.mileem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import ar.uba.fi.mileem.models.PublicationFullResult;
 
-public class MapFragment extends SupportMapFragment {
+public class MapFragment extends SupportMapFragment implements IPublicationDataObserver {
 
-	private LatLng mPosFija;
 
 	public MapFragment() {
 		super();
 
 	}
 
-	public static MapFragment newInstance(LatLng posicion) {
-		MapFragment frag = new MapFragment();
-		frag.mPosFija = posicion;
-		return frag;
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,13 +36,18 @@ public class MapFragment extends SupportMapFragment {
 	private void initMap() {
 		UiSettings settings = getMap().getUiSettings();
 		settings.setAllGesturesEnabled(true);
-		settings.setMyLocationButtonEnabled(false);
-
-		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(mPosFija, 14));
-		getMap().addMarker(
-				new MarkerOptions().position(mPosFija));
-						
+		settings.setMyLocationButtonEnabled(true);
+		PublicationActivity a = ((PublicationActivity) getActivity());
+		PublicationFullResult p =  a.getPublication();
+		if(p!= null){
+			getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(p.getCoords(), 14));
+			getMap().addMarker(
+					new MarkerOptions().title(p.getAddress()).position(p.getCoords()));
+		}	
 	}
 	
+	public void onPublicationData() {
+		initMap();		
+	}
 	
 }

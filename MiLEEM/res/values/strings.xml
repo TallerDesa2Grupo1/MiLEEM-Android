@@ -45,6 +45,7 @@
 	<string name="cerrar_btn">Cerrar</string>
 	<string name="ok_btn">OK</string>
 	<string name="compartir">Compartir</string>
+	<string name="cargando">Cargando...</string>
 	<string name="oops">Oops! algo anda mal</string>
 	<string name="connection_error">Hay problemas con su conexión de internet, por favor intente de nuevo más tarde.</string>
 </resources>

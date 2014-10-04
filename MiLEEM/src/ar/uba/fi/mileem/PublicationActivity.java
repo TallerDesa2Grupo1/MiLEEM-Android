@@ -1,5 +1,7 @@
 package ar.uba.fi.mileem;
 
+import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,6 +10,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
@@ -17,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import ar.uba.fi.mileem.models.PublicationFullResult;
 import ar.uba.fi.mileem.utils.ApiHelper;
 import ar.uba.fi.mileem.utils.JsonCacheHttpResponseHandler;
 import ar.uba.fi.mileem.utils.TabsPagerAdapter;
@@ -31,6 +35,8 @@ public class PublicationActivity extends FragmentActivity  implements
 	// Tab titles
 	private String[] tabs = { "Detalles", "Fotos", "Videos","Mapa","Contacto" };
 	private String id = "";
+	private Object pubLock = new Object();
+	private PublicationFullResult publication = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -117,25 +123,49 @@ public class PublicationActivity extends FragmentActivity  implements
 
 	
 	private void findPublicationInfo(){
-		ApiHelper.getInstance().getPublication(id, new JsonCacheHttpResponseHandler(){
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				super.onSuccess(statusCode, headers, response);
+		if(getPublication() == null){
+			Toast.makeText(this, R.string.cargando, Toast.LENGTH_SHORT).show();
+			ApiHelper.getInstance().getPublication(id, new JsonCacheHttpResponseHandler(){
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						JSONObject response) {
+					super.onSuccess(statusCode, headers, response);
+					synchronized (pubLock) {
+						publication = new PublicationFullResult(response);
+					}
+					
+					notifyFrames();
+				}
+	
+				public void onFailure(int statusCode, Header[] headers,
+						Throwable throwable, JSONObject errorResponse) {
+					super.onFailure(statusCode, headers, throwable, errorResponse);
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						Throwable throwable, JSONArray errorResponse) {
+					// TODO Auto-generated method stub
+					super.onFailure(statusCode, headers, throwable, errorResponse);
+				}
+			});
+		}
+	}
+	
+	
+	private void notifyFrames() {
+		List<Fragment> fragments = getSupportFragmentManager().getFragments();
+		for (Fragment fragment : fragments) {
+			if(fragment instanceof IPublicationDataObserver){
+				((IPublicationDataObserver)fragment).onPublicationData();
 			}
-			
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				super.onFailure(statusCode, headers, throwable, errorResponse);
-			}
-			
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONArray errorResponse) {
-				// TODO Auto-generated method stub
-				super.onFailure(statusCode, headers, throwable, errorResponse);
-			}
-		});
+		}
+	}
+	
+	public PublicationFullResult getPublication() {
+		synchronized (pubLock) {
+			return publication;
+		}
 	}
 	
 	@Override

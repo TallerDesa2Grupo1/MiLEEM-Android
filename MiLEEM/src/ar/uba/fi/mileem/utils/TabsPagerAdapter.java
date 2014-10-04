@@ -1,8 +1,6 @@
 package ar.uba.fi.mileem.utils;
 
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -35,7 +33,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			return new VideosFragment();
 		case 3:
 			// Top Rated fragment activity
-			return MapFragment.newInstance(new LatLng(-34.6204561,-58.365235));
+			return new MapFragment();
 		case 4:
 			// Top Rated fragment activity
 			return new ContactFragment();
