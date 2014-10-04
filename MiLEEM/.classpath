@@ -6,8 +6,8 @@
 	<classpathentry exported="true" kind="lib" path="libs/urlimageviewhelper.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/android-async-http-1.4.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry kind="src" path="/PullToUpdateLib"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="src" path="/PullToUpdateLib"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
