@@ -43,7 +43,7 @@ public class SearchViewAdapter extends ArrayAdapter<PublicationResult> {
     	  
 			viewHolder = new PublicationsViewHolder();
 			viewHolder.txTitle = (CustomTextView) rowView.findViewById(R.id.titulo_item);
-			viewHolder.txSubTitle = (CustomTextView) rowView.findViewById(R.id.subtitulo_item);
+			viewHolder.txSubTitle = (CustomTextView) rowView.findViewById(R.id.contact_home_phone);
 			viewHolder.txPrice = (CustomTextView) rowView.findViewById(R.id.item_price);
 			viewHolder.imgPublication = (ImageView) rowView.findViewById(R.id.item_preview);
 			viewHolder.bigImgPublication = (ImageView) rowView.findViewById(R.id.big_image);

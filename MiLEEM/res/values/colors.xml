@@ -5,7 +5,7 @@
       <color name="highlighted_publication_background">#fce6ed</color>
       <color name="stacked_actionbar_background">#ffffff</color>
       <color name="selected_actionbar_button_background">#f7aec7</color>
-      
+      <color name="black">#000000</color>
         <color name="white">#ffffff</color>
     <color name="feed_bg">#d3d6db</color>
     <color name="feed_item_bg">#ffffff</color>

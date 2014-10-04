@@ -9,8 +9,11 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class PublicationFullResult extends PublicationResult {
 
+	JSONObject contact = null;
+	
 	public PublicationFullResult(JSONObject jo) {
 		super(jo);
+		contact = jo.optJSONObject("User");
 	}
 	
 	/*
@@ -94,6 +97,25 @@ public class PublicationFullResult extends PublicationResult {
 				}
 
 				return "";
+			}
+
+			public String getContactName() {
+				
+				return contact.optString("name");
+			}
+			
+			public String getHomePhone() {
+				
+				return contact.optString("tel_part");
+			}
+			
+			public String getMobilePhone() {
+				
+				return contact.optString("mobile");
+			}
+
+			public String getContactEmail() {
+				return contact.optString("username");
 			}
 	
 

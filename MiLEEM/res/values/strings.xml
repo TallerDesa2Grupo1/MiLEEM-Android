@@ -49,4 +49,8 @@
 	<string name="error_player">Se produjo un error iniciando el reproductor de videos de YouTube (%1$s)</string>
 	<string name="oops">Oops! algo anda mal</string>
 	<string name="connection_error">Hay problemas con su conexión de internet, por favor intente de nuevo más tarde.</string>
+	<string name="tel_particular">Teléfono Particular</string>
+	<string name="mobile">Teléfono Móvil</string>
+	<string name="call">Llamar</string>
+	<string name="email">Correo Electrónico</string>
 </resources>
