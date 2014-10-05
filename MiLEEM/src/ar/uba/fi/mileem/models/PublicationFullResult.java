@@ -2,18 +2,27 @@ package ar.uba.fi.mileem.models;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import ar.uba.fi.mileem.Config;
 
 import com.google.android.gms.maps.model.LatLng;
 
 public class PublicationFullResult extends PublicationResult {
 
 	JSONObject contact = null;
+	JSONObject publication = null;
 	
 	public PublicationFullResult(JSONObject jo) {
 		super(jo);
 		contact = jo.optJSONObject("User");
+		publication = jo.optJSONObject("Publication");
+		
 	}
 	
 	/*
@@ -116,6 +125,24 @@ public class PublicationFullResult extends PublicationResult {
 
 			public String getContactEmail() {
 				return contact.optString("username");
+			}
+			
+			public List<String> getImagesUrl(){
+				String imgs = publication.optString("images_url");
+				List<String> images = new ArrayList<String>();
+				JSONArray ja=null;
+				try {
+					ja = new JSONArray(imgs);
+				} catch (JSONException e) {
+				}
+				
+				if(ja != null && ja.length()>0){
+					for (int i=0;i<ja.length();i++){
+						String currentImage = Config.SITEBASEURL + ja.optString(i);
+						images.add(currentImage);
+					}
+				}
+				return images;
 			}
 	
 
