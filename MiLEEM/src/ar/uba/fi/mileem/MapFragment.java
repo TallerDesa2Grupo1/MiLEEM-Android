@@ -34,16 +34,18 @@ public class MapFragment extends SupportMapFragment implements IPublicationDataO
 	}
 
 	private void initMap() {
-		UiSettings settings = getMap().getUiSettings();
-		settings.setAllGesturesEnabled(true);
-		settings.setMyLocationButtonEnabled(true);
-		PublicationActivity a = ((PublicationActivity) getActivity());
-		PublicationFullResult p =  a.getPublication();
-		if(p!= null){
-			getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(p.getCoords(), 14));
-			getMap().addMarker(
-					new MarkerOptions().title(p.getAddress()).position(p.getCoords()));
-		}	
+		if(getMap() != null){
+			UiSettings settings = getMap().getUiSettings();
+			settings.setAllGesturesEnabled(true);
+			settings.setMyLocationButtonEnabled(true);
+			PublicationActivity a = ((PublicationActivity) getActivity());
+			PublicationFullResult p =  a.getPublication();
+			if(p!= null){
+				getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(p.getCoords(), 14));
+				getMap().addMarker(
+						new MarkerOptions().title(p.getAddress()).position(p.getCoords()));
+			}	
+		}
 	}
 	
 	public void onPublicationData() {

@@ -23,7 +23,7 @@
         android:padding="30dp" >
 
         <ar.uba.fi.mileem.custom.CustomTextView
-            android:id="@+id/subtitulo_item"
+            android:id="@+id/contact_home_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
