@@ -19,6 +19,7 @@ public class PicturesFragment extends Fragment  implements IPublicationDataObser
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+			setRetainInstance(true);
 		View rootView = inflater.inflate(R.layout.fragment_pictures, container, false);
 		setViewInfo(rootView);
 		Log.e(this.toString(), "oncreateview");

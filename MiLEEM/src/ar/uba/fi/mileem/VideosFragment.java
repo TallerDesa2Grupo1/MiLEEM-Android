@@ -31,7 +31,8 @@ public class VideosFragment extends Fragment implements IPublicationDataObserver
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 		View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
 		initVideo(rootView);
 		Log.e(this.toString(), "oncreateview");
@@ -51,7 +52,7 @@ public class VideosFragment extends Fragment implements IPublicationDataObserver
 				ImageButton button = (ImageButton)v.findViewById(R.id.videoButton);
 				button.setOnClickListener(listener);
 				String url = ApiHelper.getInstance().getVideoThumbnail(p.getVideoCode());
-				UrlImageViewHelper.setUrlDrawable(button,url,R.drawable.videoplaceholder,  new UrlImageViewCallback() {
+				UrlImageViewHelper.setUrlDrawable(button,url,R.drawable.placeholder,  new UrlImageViewCallback() {
 			          @Override
 			          public void onLoaded(ImageView imageView, Bitmap loadedBitmap, String url, boolean loadedFromCache) {
 			              if (!loadedFromCache) {

@@ -87,6 +87,13 @@ public class PublicationFullResult extends PublicationResult {
 }
 
 	 * */
+			public String getOperationType(){
+				return publication.optString("operation_type");
+			}
+			
+			public String getPropertyType(){
+				return publication.optString("property_type");
+			}
 	
 			public LatLng getCoords(){
 				return new LatLng(-34.6204561,-58.365235);

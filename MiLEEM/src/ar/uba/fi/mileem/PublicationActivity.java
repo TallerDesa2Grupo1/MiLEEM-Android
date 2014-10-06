@@ -5,14 +5,13 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -46,7 +45,7 @@ public class PublicationActivity extends FragmentActivity  implements
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.publication_activity);
-
+		
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
@@ -79,9 +78,23 @@ public class PublicationActivity extends FragmentActivity  implements
 			}
 		});
 		
-		Bundle b = getIntent().getExtras();
-		id = b.getString(Config.PUBLICATION_ID);
-		findPublicationInfo();
+		  id = null;
+		  Intent intent = getIntent();
+		  String action = intent.getAction();
+		  Uri data = intent.getData();
+		  if(action !=null && data != null ){
+			  id =  data.toString().substring(data.toString().lastIndexOf('/'), data.toString().length());
+		  }else {
+			  Bundle b = getIntent().getExtras();
+			  id = b.getString(Config.PUBLICATION_ID);
+					  
+		  }
+		if(id == null){
+			Toast.makeText(this, "Publicacion Inválida", Toast.LENGTH_LONG).show();
+			finish();
+		}else{
+			findPublicationInfo();
+		}
 		
 	}
 	protected void setTitleAndTabs(){
@@ -114,7 +127,7 @@ public class PublicationActivity extends FragmentActivity  implements
 			findPublicationInfo();
 			return true;
 		case R.id.action_share:
-			Toast.makeText(this, R.string.compartir, Toast.LENGTH_SHORT).show();
+			shareTextUrl();
 			return true;
 		case R.id.action_chart:
 			Toast.makeText(this, R.string.ver_estadisticas, Toast.LENGTH_SHORT).show();
@@ -126,6 +139,18 @@ public class PublicationActivity extends FragmentActivity  implements
 		return false;
 	}
 
+	
+	private void shareTextUrl() {
+		PublicationFullResult p = getPublication();
+		if(p != null){
+			String text = p.getPropertyType()+" | "+p.getOperationType()+" | "+p.getAddress() +" "+p.getDescription() ;
+			String link = "http://mileem.abarbieri.com.ar/publications/public_view/"+p.getId();
+		    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+		    sharingIntent.setType("text/plain");
+		    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text + " " + link);
+		    startActivity(Intent.createChooser(sharingIntent, "Compartir"));
+		}
+	}
 	
 	private void findPublicationInfo(){
 		if(getPublication() == null){
