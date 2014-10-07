@@ -12,13 +12,14 @@ import ar.uba.fi.mileem.VideosFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
+	private String[] tabs_tags = { "Detalles", "Fotos", "Videos","Mapa","Contacto" };
 	FragmentManager fm = null;
+	
 	public TabsPagerAdapter(FragmentManager fm) {
 		super(fm);
 		this.fm = fm;
 	}
 
-	@Override
 	public Fragment getItem(int index) {
 
 		switch (index) {
@@ -43,10 +44,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 		return null;
 	}
 
-	@Override
+	public CharSequence getPageTitle(int position) {
+		return tabs_tags[position];
+		}
 	public int getCount() {
-		// get item count - equal to number of tabs
-		return 5;
+		return tabs_tags.length;
 	}
-
 }

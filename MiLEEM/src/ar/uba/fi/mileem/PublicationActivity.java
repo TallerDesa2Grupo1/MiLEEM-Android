@@ -5,11 +5,10 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
-import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,96 +29,70 @@ import ar.uba.fi.mileem.utils.JsonCacheHttpResponseHandler;
 import ar.uba.fi.mileem.utils.TabsPagerAdapter;
 import ar.uba.fi.mileem.utils.TypefaceSpan;
 
-public class PublicationActivity extends FragmentActivity  implements
-		ActionBar.TabListener {
+public class PublicationActivity extends FragmentActivity  {
 
-	private ViewPager viewPager;
-	private TabsPagerAdapter mAdapter;
-	private ActionBar actionBar;
-	// Tab titles
-	private String[] tabs = { "Detalles", "Fotos", "Videos","Mapa","Contacto" };
 	private String id = "";
 	private Object pubLock = new Object();
 	private PublicationFullResult publication = null;
+	private PagerSlidingTabStrip tabs;
+	private ViewPager pager;
+	private TabsPagerAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.publication_activity);
+		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+		pager = (ViewPager) findViewById(R.id.pager);
+		adapter = new TabsPagerAdapter(getSupportFragmentManager());
+		pager.setAdapter(adapter);
+		final int pageMargin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
+						.getDisplayMetrics());
+		pager.setPageMargin(pageMargin);
+		tabs.setViewPager(pager);
+		tabs.setIndicatorColor(getResources().getColor(R.color.apptheme_color));
+		setTitleAndTabs();
 		
-		// Initilization
-		viewPager = (ViewPager) findViewById(R.id.pager);
-		actionBar = getActionBar();
-		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-		viewPager.setAdapter(mAdapter);
-		actionBar.setHomeButtonEnabled(false);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
-		// Adding Tabs
-		 setTitleAndTabs();
-		/**
-		 * on swiping the viewpager make respective tab selected
-		 * */
-		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+		tabs.setShouldExpand(true);
 
-			@Override
-			public void onPageSelected(int position) {
-				// on changing the page
-				// make respected tab selected
-				actionBar.setSelectedNavigationItem(position);
-			}
+		id = null;
+		Intent intent = getIntent();
+		String action = intent.getAction();
+		Uri data = intent.getData();
+		if (action != null && data != null) {
+			id = data.toString().substring(data.toString().lastIndexOf('/'),
+					data.toString().length());
+		} else {
+			Bundle b = getIntent().getExtras();
+			id = b.getString(Config.PUBLICATION_ID);
 
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-			}
-		});
-		
-		  id = null;
-		  Intent intent = getIntent();
-		  String action = intent.getAction();
-		  Uri data = intent.getData();
-		  if(action !=null && data != null ){
-			  id =  data.toString().substring(data.toString().lastIndexOf('/'), data.toString().length());
-		  }else {
-			  Bundle b = getIntent().getExtras();
-			  id = b.getString(Config.PUBLICATION_ID);
-					  
-		  }
-		if(id == null){
-			Toast.makeText(this, "Publicacion Inv·lida", Toast.LENGTH_LONG).show();
+		}
+		if (id == null) {
+			Toast.makeText(this, "Publicacion Inv√°lida", Toast.LENGTH_LONG)
+					.show();
 			finish();
-		}else{
+		} else {
 			findPublicationInfo();
 		}
-		
-	}
-	protected void setTitleAndTabs(){
-		SpannableString s = new SpannableString(getString(R.string.app_name));
-		s.setSpan(new TypefaceSpan(this, "Roboto-Light.ttf"), 0, s.length(),
-		        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		actionBar.setTitle(s);
-		for (String tab_name : tabs) {
-			 s = new SpannableString(tab_name);
-			s.setSpan(new TypefaceSpan(this, "Roboto-Regular.ttf"), 0, s.length(),
-			        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			actionBar.addTab(actionBar.newTab().setText(s)
-					.setTabListener(this));
-		}
 
 	}
-	
+
+	protected void setTitleAndTabs() {
+		SpannableString s = new SpannableString(getString(R.string.app_name));
+		s.setSpan(new TypefaceSpan(this, "Roboto-Light.ttf"), 0, s.length(),
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		getActionBar().setTitle(s);
+	}
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.publication_view_menu, menu);
-		
+
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
@@ -130,102 +104,97 @@ public class PublicationActivity extends FragmentActivity  implements
 			shareTextUrl();
 			return true;
 		case R.id.action_chart:
-			Toast.makeText(this, R.string.ver_estadisticas, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.ver_estadisticas, Toast.LENGTH_SHORT)
+					.show();
 			return true;
-		 case android.R.id.home:
-	         NavUtils.navigateUpFromSameTask(this);
-	         return true;
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
 		}
 		return false;
 	}
 
-	
 	private void shareTextUrl() {
 		PublicationFullResult p = getPublication();
-		if(p != null){
-			String text = p.getPropertyType()+" | "+p.getOperationType()+" | "+p.getAddress() +" "+p.getDescription() ;
-			String link = "http://mileem.abarbieri.com.ar/publications/public_view/"+p.getId();
-		    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-		    sharingIntent.setType("text/plain");
-		    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text + " " + link);
-		    startActivity(Intent.createChooser(sharingIntent, "Compartir"));
+		if (p != null) {
+			String text = p.getPropertyType() + " | " + p.getOperationType()
+					+ " | " + p.getAddress() + " " + p.getDescription();
+			String link = "http://mileem.abarbieri.com.ar/publications/public_view/"
+					+ p.getId();
+			Intent sharingIntent = new Intent(
+					android.content.Intent.ACTION_SEND);
+			sharingIntent.setType("text/plain");
+			sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text
+					+ " " + link);
+			startActivity(Intent.createChooser(sharingIntent, "Compartir"));
 		}
 	}
-	
-	private void findPublicationInfo(){
-		if(getPublication() == null){
-			ApiHelper.getInstance().getPublication(id, new JsonCacheHttpResponseHandler(){
-				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						JSONObject response) {
-					super.onSuccess(statusCode, headers, response);
-					synchronized (pubLock) {
-						publication = new PublicationFullResult(response);
-					}
-					
-					notifyFrames();
-				}
-	
-				public void onFailure(int statusCode, Header[] headers,
-						Throwable throwable, JSONObject errorResponse) {
-					super.onFailure(statusCode, headers, throwable, errorResponse);
-				}
-				
-				@Override
-				public void onFailure(int statusCode, Header[] headers,
-						Throwable throwable, JSONArray errorResponse) {
-					// TODO Auto-generated method stub
-					super.onFailure(statusCode, headers, throwable, errorResponse);
-				}
-			});
+
+	private void findPublicationInfo() {
+		if (getPublication() == null) {
+			ApiHelper.getInstance().getPublication(id,
+					new JsonCacheHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, Header[] headers,
+								JSONObject response) {
+							super.onSuccess(statusCode, headers, response);
+							synchronized (pubLock) {
+								publication = new PublicationFullResult(
+										response);
+							}
+
+							notifyFrames();
+						}
+
+						public void onFailure(int statusCode, Header[] headers,
+								Throwable throwable, JSONObject errorResponse) {
+							super.onFailure(statusCode, headers, throwable,
+									errorResponse);
+						}
+
+						@Override
+						public void onFailure(int statusCode, Header[] headers,
+								Throwable throwable, JSONArray errorResponse) {
+							// TODO Auto-generated method stub
+							super.onFailure(statusCode, headers, throwable,
+									errorResponse);
+						}
+					});
 		}
 	}
-	
-	
+
 	private void notifyFrames() {
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		for (Fragment fragment : fragments) {
-			if(fragment instanceof IPublicationDataObserver){
-				((IPublicationDataObserver)fragment).onPublicationData();
+			if (fragment instanceof IPublicationDataObserver) {
+				((IPublicationDataObserver) fragment).onPublicationData();
 			}
 		}
 	}
-	
+
 	public PublicationFullResult getPublication() {
 		synchronized (pubLock) {
 			return publication;
 		}
 	}
-	
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	}
 
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// on tab selected
-		// show respected fragment view
-		viewPager.setCurrentItem(tab.getPosition());
-	}
+	private static final int REQ_START_STANDALONE_PLAYER = 1;
 
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQ_START_STANDALONE_PLAYER
+				&& resultCode != RESULT_OK) {
+			YouTubeInitializationResult errorReason = YouTubeStandalonePlayer
+					.getReturnedInitializationResult(data);
+			if (errorReason.isUserRecoverableError()) {
+				errorReason.getErrorDialog(this, 0).show();
+			} else {
+				String errorMessage = String.format(
+						getString(R.string.error_player),
+						errorReason.toString());
+				Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+			}
+		}
 	}
-
-	 private static final int REQ_START_STANDALONE_PLAYER = 1;
-	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		    super.onActivityResult(requestCode, resultCode, data);
-		    if (requestCode == REQ_START_STANDALONE_PLAYER && resultCode != RESULT_OK) {
-		      YouTubeInitializationResult errorReason =
-		          YouTubeStandalonePlayer.getReturnedInitializationResult(data);
-		      if (errorReason.isUserRecoverableError()) {
-		        errorReason.getErrorDialog(this, 0).show();
-		      } else {
-		        String errorMessage =
-		            String.format(getString(R.string.error_player), errorReason.toString());
-		        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-		      }
-		    }
-		  }
 
 }
