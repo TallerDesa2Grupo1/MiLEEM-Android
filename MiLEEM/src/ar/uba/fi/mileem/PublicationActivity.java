@@ -10,6 +10,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,8 @@ public class PublicationActivity extends FragmentActivity  {
 		pager.setPageMargin(pageMargin);
 		tabs.setViewPager(pager);
 		tabs.setIndicatorColor(getResources().getColor(R.color.apptheme_color));
+		tabs.setTextColor(getResources().getColor(R.color.apptheme_color));
+		tabs.setTypeface(TypefaceSpan.getTypeFace(this, "Roboto-Regular.ttf"), Typeface.NORMAL);
 		setTitleAndTabs();
 		
 		tabs.setShouldExpand(true);
@@ -119,8 +122,7 @@ public class PublicationActivity extends FragmentActivity  {
 		if (p != null) {
 			String text = p.getPropertyType() + " | " + p.getOperationType()
 					+ " | " + p.getAddress() + " " + p.getDescription();
-			String link = "http://mileem.abarbieri.com.ar/publications/public_view/"
-					+ p.getId();
+			String link = Config.PUBLIC_VIEW_URL + p.getId();
 			Intent sharingIntent = new Intent(
 					android.content.Intent.ACTION_SEND);
 			sharingIntent.setType("text/plain");
