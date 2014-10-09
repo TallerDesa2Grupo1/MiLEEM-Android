@@ -15,6 +15,19 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/feed_item_padding_top_bottom"
         android:paddingTop="@dimen/feed_item_padding_top_bottom" >
+
+        <ar.uba.fi.mileem.custom.CustomTextView
+            android:id="@+id/titulo_item"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/feed_item_padding_left_right"
+            android:layout_marginRight="@dimen/feed_item_padding_left_right"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Titulo muy largo para entrar en una sola filas"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/apptheme_color"
+            android:textStyle="bold" />
  
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -23,46 +36,29 @@
             android:paddingLeft="@dimen/feed_item_padding_left_right"
             android:paddingRight="@dimen/feed_item_padding_left_right" >
 
-  <ImageView
-      android:id="@+id/item_preview"
-      style="@style/AppTheme"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentTop="true"
-      android:layout_marginRight="@dimen/feed_item_padding_left_right"
-      android:adjustViewBounds="true"
-      android:maxHeight="@dimen/feed_item_profile_pic"
-      android:maxWidth="@dimen/feed_item_profile_pic"
-      android:scaleType="centerInside"
-      android:src="@drawable/placeholder" />
+            <ImageView
+                android:id="@+id/item_preview"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/feed_item_profile_pic"
+                android:layout_marginRight="@dimen/feed_item_padding_left_right"
+                android:adjustViewBounds="true"
+                android:maxWidth="@dimen/feed_item_profile_pic"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder" />
 
   <ar.uba.fi.mileem.custom.CustomTextView
-      android:id="@+id/titulo_item"
+      android:id="@+id/contact_home_phone"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
       android:layout_toRightOf="@+id/item_preview"
       android:ellipsize="end"
-      android:maxLines="2"
-      android:text="Titulo muy largo para entrar en una sola filas"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      android:textColor="@color/apptheme_color"
-      android:textStyle="bold" />
+      android:maxLines="3"
+      android:text="Descripcion Corta Un poco mas larga sarasa dasa asda fakljada"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
                
         </RelativeLayout>
-
-        <ar.uba.fi.mileem.custom.CustomTextView
-            android:id="@+id/contact_home_phone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:paddingLeft="@dimen/feed_item_padding_left_right"
-            android:paddingRight="@dimen/feed_item_status_pad_left_right"
-            android:text="Descripcion Corta Un poco mas larga sarasa dasa asda fakljada"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
  
         <ar.uba.fi.mileem.custom.FeedImageView
             android:id="@+id/big_image"

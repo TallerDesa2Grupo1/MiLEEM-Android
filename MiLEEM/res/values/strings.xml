@@ -57,4 +57,5 @@
 	<string name="mobile">Teléfono Móvil</string>
 	<string name="call">Llamar</string>
 	<string name="email">Correo Electrónico</string>
+	<string name="no_video">Esta publicación no tiene video.</string>
 </resources>
