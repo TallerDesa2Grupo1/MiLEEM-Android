@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.1', {'packages':['corechart',"bar"]});
+      
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+
+      // Callback that creates and populates a data table, 
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Cantidad de Ambientes');
+      data.addColumn('number', 'Porcentaje');
+      data.addRows([
+        ['1 Amb.', 1],
+        ['2 Amb.',3],
+        ['3 Amb.', 5], 
+        ['4 Amb.',6]
+      ]);
+
+      // Set chart options
+      var options = {              };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+       drawChart2();
+    }
+      function drawChart2() {
+
+      // Create the data table.
+   		 var data = google.visualization.arrayToDataTable([
+   		  ['Barrio', "$/m2"],
+        ['Barracas', "10.65"],
+        ['Boca',"3.56"],
+        ['San Telmo', "51.1"], 
+        ['Constitución',"45.32"]
+      ]);
+
+      // Set chart options
+      var options = {   bars: 'vertical',   backgroundColor: {    stroke: '#fff',  strokeWidth: 0  } };
+
+      // Instantiate and draw our chart, passing in some options.
+       var chart = new google.charts.Bar(document.getElementById('chart2_div'));
+      chart.draw(data, options);
+    }
+    </script>
+  </head>
+
+  <body>
+ <!--Div that will hold the pie chart-->
+  <div style="text-align:center; font-family:'Arial';"><h3>Distribución de ambientes en el barrio.</h3></div>
+    <div id="chart_div" style="width:100%;text-align:center;border:0;"></div>
+    <div style="text-align:center; font-family:'Arial';"><h3>Precio promedio del m2 del barrio y zonas aledañas</h3></div>
+     <div id="chart2_div" style="width:100%;text-align:center;border:0;"></div>
+  </body>
+</html>

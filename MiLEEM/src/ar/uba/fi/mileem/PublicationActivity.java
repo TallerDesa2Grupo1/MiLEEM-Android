@@ -42,7 +42,6 @@ public class PublicationActivity extends FragmentActivity  {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.publication_activity);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		pager = (ViewPager) findViewById(R.id.pager);
@@ -59,7 +58,8 @@ public class PublicationActivity extends FragmentActivity  {
 		setTitleAndTabs();
 		
 		tabs.setShouldExpand(true);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		id = null;
 		Intent intent = getIntent();
 		String action = intent.getAction();

@@ -199,6 +199,10 @@ public class SearchActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
+		
+		case R.id.action_chart:
+			showCharts();
+			break;
 		case R.id.action_refresh:
 			resetSearch();
 			return true;
@@ -237,6 +241,12 @@ public class SearchActivity extends ListActivity {
 	}
 
 	
+
+	private void showCharts() {
+		Intent i = new Intent(SearchActivity.this, StatsActivity.class);
+		SearchActivity.this.startActivity(i);
+	}
+
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
