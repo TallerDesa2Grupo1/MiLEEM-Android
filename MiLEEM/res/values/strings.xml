@@ -58,4 +58,5 @@
 	<string name="call">Llamar</string>
 	<string name="email">Correo Electrónico</string>
 	<string name="no_video">Esta publicación no tiene video.</string>
+	<string name="menu_legalnotices">Aviso Legal</string>
 </resources>
