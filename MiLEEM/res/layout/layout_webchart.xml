@@ -3,7 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
+    <ar.uba.fi.mileem.custom.CustomTextView
+        android:id="@+id/emptyText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/cargando"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/apptheme_color" />
+
     <WebView
         android:id="@+id/web"
         android:layout_width="match_parent"

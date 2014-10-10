@@ -37,6 +37,10 @@ public class ApiHelper {
 		return "http://maps.googleapis.com/maps/api/staticmap?sensor=false&size=600x300&maptype=roadmap&languaje=es&region=ar&center=%22"+coords.latitude+","+coords.longitude+"%22&zoom=15&markers=color:0xe91e63%7C"+coords.latitude+","+coords.longitude+"&key="+MileemApp.getContext().getString(R.string.api_key);
 	}
 	
+	public void getStats(String id, JsonHttpResponseHandler responseHandler){
+		doGet(Config.BASEURL + "stats/"+id, responseHandler);
+	} 
+	
 	public void getPublication(String id, JsonHttpResponseHandler responseHandler){
 		doGet(Config.BASEURL + Config.PUBLICACION_CONTROLLER+"/"+id, responseHandler);
 	} 	
