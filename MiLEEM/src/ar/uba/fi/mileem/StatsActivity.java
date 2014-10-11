@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +32,7 @@ public class StatsActivity  extends Activity {
 		        setContentView(R.layout.layout_webchart);
 		        getActionBar().setDisplayHomeAsUpEnabled(true);
 		    	emptyView = (TextView) findViewById(R.id.emptyText);
-		        resetSearch();
+		    	 resetSearch();
 	}
 	
 	
@@ -54,6 +55,13 @@ public class StatsActivity  extends Activity {
 			
 			return super.onCreateOptionsMenu(menu);
 		}
+	 
+	 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		resetSearch();
+	}
 	 
 	 private void resetSearch() {
 			if(ApiHelper.getInstance().isNetworkAvailable(this)){

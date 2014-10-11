@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import android.content.Intent;
@@ -23,6 +25,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import ar.uba.fi.mileem.models.PublicationFullResult;
 import ar.uba.fi.mileem.utils.ApiHelper;
@@ -38,6 +41,7 @@ public class PublicationActivity extends FragmentActivity  {
 	private PagerSlidingTabStrip tabs;
 	private ViewPager pager;
 	private TabsPagerAdapter adapter;
+	private AdView adView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,11 @@ public class PublicationActivity extends FragmentActivity  {
 		tabs.setIndicatorColor(getResources().getColor(R.color.apptheme_color));
 		tabs.setTextColor(getResources().getColor(R.color.apptheme_color));
 		tabs.setTypeface(TypefaceSpan.getTypeFace(this, "Roboto-Regular.ttf"), Typeface.NORMAL);
+		
+
+		adView = (AdView) findViewById(R.id.adView);
+		
+		
 		setTitleAndTabs();
 		
 		tabs.setShouldExpand(true);
@@ -107,8 +116,7 @@ public class PublicationActivity extends FragmentActivity  {
 			shareTextUrl();
 			return true;
 		case R.id.action_chart:
-			Toast.makeText(this, R.string.ver_estadisticas, Toast.LENGTH_SHORT)
-					.show();
+			showCharts();
 			return true;
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
@@ -117,6 +125,11 @@ public class PublicationActivity extends FragmentActivity  {
 		return false;
 	}
 
+	private void showCharts() {
+		Intent i = new Intent(PublicationActivity.this, StatsActivity.class);
+		PublicationActivity.this.startActivity(i);
+	}
+	
 	private void shareTextUrl() {
 		PublicationFullResult p = getPublication();
 		if (p != null) {
@@ -166,6 +179,14 @@ public class PublicationActivity extends FragmentActivity  {
 	}
 
 	private void notifyFrames() {
+		if(!getPublication().isHighlighted()){
+			AdRequest adRequest = new AdRequest.Builder().build();
+	    	adView.loadAd(adRequest);
+		}else{
+			adView.destroy();
+			adView.setVisibility(View.GONE);
+		}
+		
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		for (Fragment fragment : fragments) {
 			if (fragment instanceof IPublicationDataObserver) {
@@ -197,6 +218,30 @@ public class PublicationActivity extends FragmentActivity  {
 				Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
 			}
 		}
+	}
+	
+	
+	public void onResume() {
+		super.onResume();
+		if (adView != null) {
+			adView.resume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (adView != null) {
+			adView.pause();
+		}
+		super.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		if (adView != null) {
+			adView.destroy();
+		}
+		super.onDestroy();
 	}
 
 }

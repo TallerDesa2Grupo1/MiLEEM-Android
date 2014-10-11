@@ -8,7 +8,7 @@
     <string name="inent_scheme">http</string>
     <string name="intent_url">mileem.abarbieri.com.ar</string>
     <string name="intent_prefix">/publications/public_view</string>
-    <string name="app_version">v0.2</string>
+    <string name="app_version">v0.4</string>
     <string name="app_name">MiLEEM</string>
     <string name="dummy">dummy</string>
     <string name="action_settings">Settings</string>
