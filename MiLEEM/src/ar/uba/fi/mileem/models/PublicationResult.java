@@ -36,10 +36,10 @@ public class PublicationResult {
 	}
 	
 	public String toString() {
-			return getAddress();
+			return getContactAddress();
 	}
 	
-	public String getAddress(){
+	public String getContactAddress(){
 		return publication.optString("address");
 	} 
 	
