@@ -1,6 +1,33 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent" xmlns:app1="http://schemas.android.com/apk/res/ar.uba.fi.mileem">
+
+<com.astuetz.PagerSlidingTabStrip
+    android:id="@+id/tabs"
+    android:layout_width="match_parent"
+    android:layout_height="48dip"
+    app1:pstsIndicatorColor="@color/apptheme_color"
+    app1:pstsIndicatorHeight="4dp"
+    app1:pstsShouldExpand="true"
+    app1:pstsUnderlineColor="#fff3f3f3"
+    app1:pstsUnderlineHeight="0dp" />
+
+<android.support.v4.view.ViewPager
     android:id="@+id/pager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/adView"
+    android:layout_below="@+id/tabs"
+    tools:context=".MainActivity" />
 
-</android.support.v4.view.ViewPager>
+  <com.google.android.gms.ads.AdView
+      android:id="@+id/adView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      app:adSize="SMART_BANNER"
+      app:adUnitId="ca-app-pub-1416181639136294/9036521160" />
+
+</RelativeLayout>  

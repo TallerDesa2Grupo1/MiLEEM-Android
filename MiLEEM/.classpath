@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="lib" path="libs/urlimageviewhelper.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/android-async-http-1.4.6.jar"/>
-	<classpathentry kind="lib" path="libs/YouTubeAndroidPlayerApi.jar"/>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="src" path="/PullToUpdateLib"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/AndroidImageSlider"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/android-support-v7-appcompat"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AndroidImageSlider"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/appcompat_v7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/google-play-services_lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PagerSlidingTabStrip_library"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PullToUpdateLib"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

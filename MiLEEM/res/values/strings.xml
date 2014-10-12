@@ -2,9 +2,13 @@
 <resources>
     
     <string name="api_key_debug">AIzaSyDwgSKyhVi9-c4-CKxVHq7UXTWzmoqzTAA</string>
-    <string name="api_key_release">AIzaSyDUfR6mL7OZZ_eH3OGXmRCsbR8nH1G460E</string>
-     <string name="api_key">@string/api_key_debug</string>
-    <string name="app_version">v0.2</string>
+    <string name="api_key_release">AIzaSyDwgSKyhVi9-c4-CKxVHq7UXTWzmoqzTAA</string>
+    <string name="api_key">@string/api_key_release</string>
+    <string name="filter_title_viewcardcontent">Ver en MiLEEM</string>
+    <string name="inent_scheme">http</string>
+    <string name="intent_url">mileem.abarbieri.com.ar</string>
+    <string name="intent_prefix">/publications/public_view</string>
+    <string name="app_version">v0.4</string>
     <string name="app_name">MiLEEM</string>
     <string name="dummy">dummy</string>
     <string name="action_settings">Settings</string>
@@ -53,4 +57,6 @@
 	<string name="mobile">Teléfono Móvil</string>
 	<string name="call">Llamar</string>
 	<string name="email">Correo Electrónico</string>
+	<string name="no_video">Esta publicación no tiene video.</string>
+	<string name="menu_legalnotices">Aviso Legal</string>
 </resources>

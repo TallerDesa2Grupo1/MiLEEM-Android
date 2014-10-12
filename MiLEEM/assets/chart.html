@@ -1,0 +1,98 @@
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+  @font-face {
+ 	font-family: 'RobotoRegular';
+ 	src: url('file:///android_asset/fonts/Roboto-Light.ttf') 
+	}
+  </style>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1', {'packages':['corechart']});
+      
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawCharts);
+
+
+ 	  function drawCharts(){
+ 	  
+ 	  	var show_empty = true;
+ 	  	var data_string = Android.getData();
+ 	  	if(data_string == ""){
+ 	  		document.getElementById("cargando").style.display = 'none';
+	  		document.getElementById("no_data").style.display = 'block';
+	  		document.getElementById("charts").style.display = 'none';
+	  		return;
+ 	  	}
+ 	    var android_data = eval('('+data_string+')');
+    	var  rooms = android_data.rooms;
+    	if(rooms.length != 0){
+	      	var rooms_rows = [];
+	      	for (i = 0; i < rooms.length; i++) {
+	   		 rooms_rows[i] = [rooms[i].Publication.rooms + ' Amb.',parseInt(rooms[i].Publication.count)];
+		  	}
+		  	show_empty = false;
+		  	drawChart(rooms_rows);
+	  	}else {
+	  		document.getElementById("chart_rooms").style.display = 'none';
+	  	}
+	  	
+	  	var  averages = android_data.average;
+    	if(averages.length != 0){
+	      	var averages_rows = [['Barrio', "$/m2"]];
+	      	for (i = 0; i < averages.length; i++) {
+	   		 averages_rows[i+1] = [averages[i].Publication.neighborhood_name,parseFloat(parseFloat(averages[i].Publication.average_price).toFixed(2))];
+		  	}
+		  	show_empty = false;
+		  	drawChart2(averages_rows);
+	  	}else {
+	  		document.getElementById("chart_average").style.display = 'none';
+	  	}
+	  	document.getElementById("cargando").style.display = 'none';
+	  	if(show_empty){
+	  		document.getElementById("no_data").style.display = 'block';
+	  		document.getElementById("charts").style.display = 'none';
+	  	}
+ 	  }
+ 
+ 
+      function drawChart(rows) {
+	      var data = new google.visualization.DataTable();
+	      data.addColumn('string', 'Cantidad de Ambientes');
+	      data.addColumn('number', 'Porcentaje');
+	      data.addRows(rows);
+		  var options = {};
+	      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    	  chart.draw(data, options);
+      }
+     
+    function drawChart2(rows) {
+		var data = google.visualization.arrayToDataTable(rows);
+		var options = {     };
+		var chart = new google.visualization.ColumnChart(document.getElementById('chart2_div'));
+	
+      	chart.draw(data, options);
+      	
+    }
+    </script>
+  </head>
+
+  <body>
+  	<div id="cargando" style="min-height:100px;text-align:center; font-family:'RobotoRegular'; color:#e91e63;"><h3>Cargando...</h3></div>
+  	<div id="no_data" style="text-align:center; font-family:'RobotoRegular'; display:none;color:#e91e63;"><h3>Por el momento no contamos con datos suficientes.</h3></div>
+ 	<div id="charts">
+ 	<div id="chart_rooms">
+  	<div style="text-align:center; font-family:'RobotoRegular'; color:#e91e63;"><h3>Distribución de ambientes en el barrio.</h3></div>
+    <div id="chart_div"  style="width:auto;margin: 0 auto !important; text-align:center;border:0;"></div>
+    </div>
+    <div id="chart_average">
+    <div style="text-align:center; font-family:'RobotoRegular';color:#e91e63;"><h3>Precio promedio del m2 del barrio y zonas aledañas</h3></div>
+     <div id="chart2_div"  style="width:auto;margin: 0 auto !important; text-align:center;border:0;"></div>
+     </div>
+      </div>
+  </body>
+</html>

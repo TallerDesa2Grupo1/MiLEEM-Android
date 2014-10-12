@@ -7,12 +7,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -55,6 +61,23 @@ public class SimpleFormActivity extends Activity {
 		setListeners();
 	}
 	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		  switch (item.getItemId()) {
+		     case R.id.menu_legalnotices:
+		      String LicenseInfo = GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(
+		        getApplicationContext());
+		      AlertDialog.Builder LicenseDialog = new AlertDialog.Builder(SimpleFormActivity.this);
+		      LicenseDialog.setTitle("Legal Notices");
+		      LicenseDialog.setMessage(LicenseInfo);
+		      LicenseDialog.show();
+		         return true;
+		     }
+		  return super.onOptionsItemSelected(item);
+	}
 	
 	protected void setTitle(){
 		SpannableString s = new SpannableString(getString(R.string.app_name));
@@ -65,8 +88,19 @@ public class SimpleFormActivity extends Activity {
 		actionBar.setTitle(s);
 	}
 	
-	protected void onStart() {
+	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
+
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+		if (resultCode != ConnectionResult.SUCCESS){
+			GooglePlayServicesUtil.getErrorDialog(resultCode, this, 1).show();
+		}
+		
+	}
+	
+	protected void onStart() {
+		super.onStart();
 		neighborhoodsSpinner.setEnabled(false);
 		propertyTypeSpinner.setEnabled(false);
 		btnSearch.setEnabled(false);

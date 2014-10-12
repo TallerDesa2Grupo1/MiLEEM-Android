@@ -50,14 +50,13 @@ public class PublicationFullResult extends PublicationResult {
 	 * "mobile":"1130672233"} }
 	 */
 
-	public LatLng getCoords() {
-		return new LatLng(-34.6204561, -58.365235);
-	}
-
 	public String getVideoUrl() {
 		return "https://www.youtube.com/watch?v=FIn59oZ9buU";
 	}
 
+public LatLng getCoords(){
+	return new LatLng(-34.6204561,-58.365235);
+}
 	public String getVideoCode() {
 		URI uri;
 		try {

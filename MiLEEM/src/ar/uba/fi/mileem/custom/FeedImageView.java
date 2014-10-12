@@ -27,6 +27,7 @@ public class FeedImageView extends ImageView {
 	 
 	    protected void onDetachedFromWindow() {
 	        super.onDetachedFromWindow();
+	        System.gc();
 	    }
 	 
 	    @Override

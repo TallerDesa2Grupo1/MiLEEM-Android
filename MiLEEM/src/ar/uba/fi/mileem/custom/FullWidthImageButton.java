@@ -27,6 +27,7 @@ public class FullWidthImageButton extends ImageButton {
 	 
 	    protected void onDetachedFromWindow() {
 	        super.onDetachedFromWindow();
+	        System.gc();
 	    }
 	 
 	    @Override

@@ -21,6 +21,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import ar.uba.fi.mileem.models.PublicationFullResult;
 import ar.uba.fi.mileem.utils.ApiHelper;
 
@@ -31,8 +32,12 @@ public class VideosFragment extends Fragment implements IPublicationDataObserver
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 		View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
+		rootView.findViewById(R.id.no_video_text).setVisibility(View.VISIBLE);
+		rootView.findViewById(R.id.video_frame).setVisibility(View.GONE);
+		((TextView)rootView.findViewById(R.id.no_video_text)).setText(R.string.cargando);
 		initVideo(rootView);
 		Log.e(this.toString(), "oncreateview");
 		return rootView;
@@ -48,10 +53,17 @@ public class VideosFragment extends Fragment implements IPublicationDataObserver
 			PublicationActivity a = ((PublicationActivity) getActivity());
 			PublicationFullResult p =  a.getPublication();
 			if(p!= null && v != null){
+				String code = p.getVideoCode();
+				if(code.equals("")){
+					((TextView)v.findViewById(R.id.no_video_text)).setText(R.string.no_video);
+					return;
+				}
+				v.findViewById(R.id.no_video_text).setVisibility(View.GONE);
+				v.findViewById(R.id.video_frame).setVisibility(View.VISIBLE);
 				ImageButton button = (ImageButton)v.findViewById(R.id.videoButton);
 				button.setOnClickListener(listener);
-				String url = ApiHelper.getInstance().getVideoThumbnail(p.getVideoCode());
-				UrlImageViewHelper.setUrlDrawable(button,url,R.drawable.videoplaceholder,  new UrlImageViewCallback() {
+				String url = ApiHelper.getInstance().getVideoThumbnail(code);
+				UrlImageViewHelper.setUrlDrawable(button,url,R.drawable.placeholder,  new UrlImageViewCallback() {
 			          @Override
 			          public void onLoaded(ImageView imageView, Bitmap loadedBitmap, String url, boolean loadedFromCache) {
 			              if (!loadedFromCache) {

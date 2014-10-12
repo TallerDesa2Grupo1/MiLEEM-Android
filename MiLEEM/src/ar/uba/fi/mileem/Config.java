@@ -12,6 +12,8 @@ public class Config {
 	public static final String BARRIOS_CONTROLLER = "neighborhoods/";
 	public static final int CAPITAL_FEDERAL_ID = 1;
 	public static final String	PUBLICATION_ID = "PUBLICATION_ID";
+	public static final String PUBLIC_VIEW_URL = SITEBASEURL + PUBLICACIONES_CONTROLLER +"public_view/";
+	public static final String STATS_DATA = "STATS_DATA";
 	
 	
 	

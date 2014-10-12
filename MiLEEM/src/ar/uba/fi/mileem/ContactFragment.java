@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,10 +18,10 @@ public class ContactFragment extends Fragment implements IPublicationDataObserve
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 		View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
 		setViewInfo(rootView);
-		Log.e(this.toString(), "oncreateview");
 		return rootView;
 	}
 
