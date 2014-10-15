@@ -3,35 +3,28 @@ package ar.uba.fi.mileem;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import android.app.ActionBar.LayoutParams;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import ar.uba.fi.mileem.custom.CustomCheckBox;
+import ar.uba.fi.mileem.custom.CustomLabelValue;
 import ar.uba.fi.mileem.models.PublicationFullResult;
 import ar.uba.fi.mileem.utils.ApiHelper;
+import ar.uba.fi.mileem.utils.TypefaceSpan;
 
 import com.koushikdutta.urlimageviewhelper.UrlImageViewCallback;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 public class DetailsFragment extends Fragment implements IPublicationDataObserver {
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -59,115 +52,63 @@ public class DetailsFragment extends Fragment implements IPublicationDataObserve
 		              }
 		          }});
 			
-			String content;
-			String title;
-			int colourApp = getResources().getColor(R.color.apptheme_color);
-			int indexTitle;
-			int indexContent;
-			TextView operation_type = (TextView) v.findViewById(R.id.operation_type);
-			//operation_type.setText("Tipo de Operación: " + p.getOperationType());
-			title = "Tipo de Operación: ";
-			content = p.getOperationType();
-			indexTitle = title.length(); //wherever bold should begin 
-			indexContent = indexTitle + content.length(); //wherever bold should end 
-			Spannable span = new SpannableString(title + content); 
-			span.setSpan(new StyleSpan(Typeface.BOLD),indexTitle, indexContent,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			span.setSpan(new ForegroundColorSpan(colourApp), 0, indexTitle-1,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-			operation_type.setText(span);	
-						
-			TextView property_type = (TextView) v.findViewById(R.id.property_type);
-			//property_type.setText("Tipo de Propiedad: " + p.getPropertyType());
+			CustomLabelValue item = (CustomLabelValue) v.findViewById(R.id.operation_type);
+			item.setValue( p.getOperationType());	
+			item = (CustomLabelValue) v.findViewById(R.id.property_type);
+			item.setValue( p.getPropertyType());
+			item = (CustomLabelValue) v.findViewById(R.id.address);
+			item.setValue( p.getPublicationAddress());
+			item = (CustomLabelValue) v.findViewById(R.id.neighborhood);
+			item.setValue( p.getNeighborhood());
+			item = (CustomLabelValue) v.findViewById(R.id.covered_area);
+			item.setValue( p.getCoveredArea() + " m2");
+			item = (CustomLabelValue) v.findViewById(R.id.total_area);
+			item.setValue( p.getTotalArea() + " m2");
+			item = (CustomLabelValue) v.findViewById(R.id.rooms);
+			if(!p.getRooms().equals("null"))
+				item.setValue( p.getRooms() + " Amb.");
+			item = (CustomLabelValue) v.findViewById(R.id.expenses);
+			if(!p.getExpenses().equals("null"))
+				item.setValue( "$ " + p.getExpenses());
+			item = (CustomLabelValue) v.findViewById(R.id.age);
+			if(!p.getAge().equals("null"))
+				item.setValue( p.getAge() + " aÃ±os");
+			item = (CustomLabelValue) v.findViewById(R.id.price);
+			item.setValue(  p.getPrice());
+			item = (CustomLabelValue) v.findViewById(R.id.publication_date);
+			item.setValue( p.getPublicationDate().subSequence(0, 10));
 			
-			title = "Tipo de Propiedad: ";
-			content = p.getPropertyType();
-			indexTitle = title.length(); 
-			indexContent = indexTitle + content.length();  
-			span = new SpannableString(title + content); 
-			span.setSpan(new StyleSpan(Typeface.BOLD),indexTitle, indexContent,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			span.setSpan(new ForegroundColorSpan(colourApp), 0, indexTitle-1,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-			property_type.setText(span);	
-			
-			TextView address = (TextView) v.findViewById(R.id.address);
-			title = "Domicilio: ";
-			content = p.getPublicationAddress();
-			indexTitle = title.length();  
-			indexContent = indexTitle + content.length();  
-			span = new SpannableString(title + content); 
-			span.setSpan(new StyleSpan(Typeface.BOLD),indexTitle, indexContent,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			span.setSpan(new ForegroundColorSpan(colourApp), 0, indexTitle-1,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-			address.setText(span);
-			
-			TextView neighborhood = (TextView) v.findViewById(R.id.neighborhood);
-			title = "Barrio: ";
-			content = p.getNeighborhood();
-			indexTitle = title.length();  
-			indexContent = indexTitle + content.length();  
-			span = new SpannableString(title + content); 
-			span.setSpan(new StyleSpan(Typeface.BOLD),indexTitle, indexContent,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			span.setSpan(new ForegroundColorSpan(colourApp), 0, indexTitle-1,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-			neighborhood.setText(span);
-			
-			TextView covered_area = (TextView) v.findViewById(R.id.covered_area);
-			covered_area.setText("Área Cubierta: " + p.getCoveredArea() + " m" + (char)178);
-			
-			TextView total_area = (TextView) v.findViewById(R.id.total_area);
-			total_area.setText("Área Total: " + p.getTotalArea()+ " m" + (char)178);
-			
-			TextView rooms = (TextView) v.findViewById(R.id.rooms);
-			rooms.setText("Ambientes: " + p.getRooms());
-			
-			TextView expenses = (TextView) v.findViewById(R.id.expenses);
-			expenses.setText("Expensas: $ " + p.getExpenses());
-			
-			TextView age = (TextView) v.findViewById(R.id.age);
-			age.setText("Antigüedad: " + p.getAge() + " años");
-			
-			String currency = p.getCurrency();
-			if (currency != null){
-			if (currency.equals("USD")){
-				currency = "U$S";
-			} else if (currency.equals("ARS")){
-				currency = "$";
-			}
-			}else{
-				currency = "";
-			}
-			
-			TextView price = (TextView) v.findViewById(R.id.price);
-			price.setText("Precio: " + currency + " " + p.getPrice());
 
 
-			TextView publication_date = (TextView) v.findViewById(R.id.publication_date);
 			
-			publication_date.setText("Fecha de Publicación: " + p.getPublicationDate());
-			
-			LinearLayout layout = (LinearLayout) v.findViewById(R.id.check_boxes_layout);
-	
+			LinearLayout layout = (LinearLayout) v
+					.findViewById(R.id.check_boxes_layout);
 			Collection<String> checkBoxs = getAmenities(p);
+			if (checkBoxs.size() > 0) {
+				int idx = 0;
+				LinearLayout container =null;
+				for (String chkText : checkBoxs) {
+					if(idx%2 == 0){
+						LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
+						container = (LinearLayout)inflater.inflate( R.layout.item_checks_row,layout,false );
+						layout.addView(container);
+					}
+					CustomCheckBox chk = new CustomCheckBox(layout.getContext());
+					chk.setText(chkText);
+					chk.setChecked(true);
+					chk.setClickable(false);
+					LinearLayout.LayoutParams lparams =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT,1f);
+					chk.setLayoutParams(lparams);
+					chk.setTypeface( TypefaceSpan.getTypeFace(layout.getContext(), "Roboto-Light.ttf"));
+					container.addView(chk);
+					idx++;
+				}
+			}else{
+				layout.setVisibility(View.GONE);
+			}
 			
-			TableLayout.LayoutParams tableRowParams= new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-            int leftMargin=Double.valueOf(layout.getWidth()*0.30).intValue(),rightMargin=0,bottomMargin=0, topMargin=0;
-
-            tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-            tableRowParams.gravity = Gravity.LEFT;
-           
-			for (String chkText : checkBoxs) {
-				CheckBox chk=new CheckBox(layout.getContext());  
-				chk.setText(chkText);
-				chk.setChecked(true);
-				chk.setClickable(false);
-				chk.setLayoutParams(tableRowParams);
-//				(Double.valueOf(layout.getWidth()*0.40).intValue(),
-//				        chk.getPaddingTop(),
-//				        chk.getPaddingRight(),
-//				        chk.getPaddingBottom());
-				layout.addView(chk); 
-		
-			}					
-			
-		}
-		    		}
+   		}
+	}
 
 
 	public Collection<String> getAmenities(PublicationFullResult p) {
@@ -198,7 +139,7 @@ public class DetailsFragment extends Fragment implements IPublicationDataObserve
 		if (p.hasBalcony())
 			checkBoxs.add("Balcon");
 		if (p.hasFrontgarden())
-			checkBoxs.add("Jardín Delantero");
+			checkBoxs.add("JardÃ­n Delantero");
 		if (p.hasTerrace())
 			checkBoxs.add("Terraza");
 		if (p.hasStorage())
@@ -210,7 +151,7 @@ public class DetailsFragment extends Fragment implements IPublicationDataObserve
 		if (p.hasInternet())
 			checkBoxs.add("Internet");
 		if (p.hasDrains())
-			checkBoxs.add("Desagüe Cloacal");
+			checkBoxs.add("DesagÃ¼e Cloacal");
 		if (p.hasGas())
 			checkBoxs.add("Gas Natural");
 		if (p.hasMainsWater())
@@ -219,26 +160,7 @@ public class DetailsFragment extends Fragment implements IPublicationDataObserve
 			checkBoxs.add("Pavimento");
 		return checkBoxs;
 	};
-				
 		
-			
-			 
-			
-			
-		/*	TextView publication_type = (TextView) v.findViewById(R.id.publication_type);
-			
-			publication_type.setText("Tipo de Publicación: " + p.getPublicationType());
-			
-			TextView status = (TextView) v.findViewById(R.id.status);
-			
-			status.setText("Estado: " + p.getStatus());
-
-*/			
-		
-		
-	
-	
-	
 	
 	@Override
 	public void onPublicationData() {

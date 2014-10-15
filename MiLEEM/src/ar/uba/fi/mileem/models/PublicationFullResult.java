@@ -107,11 +107,7 @@ public LatLng getCoords(){
 		return publication.optBoolean("brand_new");
 	}
 
-	@Override
-	public String getPrice() {
-		return publication.optString("price");
-	}
-
+	
 	public String getCurrency() {
 		return publication.optString("currency");
 	}

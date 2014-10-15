@@ -38,7 +38,7 @@ public class VideosFragment extends Fragment implements IPublicationDataObserver
 		rootView.findViewById(R.id.no_video_text).setVisibility(View.VISIBLE);
 		rootView.findViewById(R.id.video_frame).setVisibility(View.GONE);
 		((TextView)rootView.findViewById(R.id.no_video_text)).setText(R.string.cargando);
-		initVideo(rootView);
+//		initVideo(rootView);
 		Log.e(this.toString(), "oncreateview");
 		return rootView;
 	}
@@ -98,6 +98,6 @@ public class VideosFragment extends Fragment implements IPublicationDataObserver
 	};
 
 	public void onPublicationData() {
-		initVideo(getView());
+//		initVideo(getView());
 	}
 }

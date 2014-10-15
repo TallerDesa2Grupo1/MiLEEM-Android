@@ -116,10 +116,10 @@ public class PublicationActivity extends FragmentActivity  {
 			findPublicationInfo();
 			return true;
 		case R.id.action_share:
-			shareTextUrl();
+		//	shareTextUrl();
 			return true;
 		case R.id.action_chart:
-			showCharts();
+			//showCharts();
 			return true;
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
@@ -183,13 +183,13 @@ public class PublicationActivity extends FragmentActivity  {
 	}
 
 	private void notifyFrames() {
-		if(!getPublication().isHighlighted()){
-			AdRequest adRequest = new AdRequest.Builder().build();
-	    	adView.loadAd(adRequest);
-		}else{
+//		if(!getPublication().isHighlighted()){
+//			AdRequest adRequest = new AdRequest.Builder().build();
+//	    	adView.loadAd(adRequest);
+//		}else{
 			adView.destroy();
 			adView.setVisibility(View.GONE);
-		}
+		//}
 		
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		for (Fragment fragment : fragments) {

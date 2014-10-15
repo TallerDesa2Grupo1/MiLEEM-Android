@@ -14,6 +14,9 @@ public class CustomCheckBox extends CheckBox {
 			init();
 		}
 	}
+	public CustomCheckBox(Context context) {
+		this(context, null);
+	}
 
 	private void init(){
 		if(getTypeface() != null &&    getTypeface().getStyle() == Typeface.BOLD){
