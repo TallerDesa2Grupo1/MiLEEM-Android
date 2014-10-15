@@ -68,4 +68,5 @@
 	<string name="direccion">Dirección</string>
 	<string name="barrio">Barrio</string>
 	<string name="fecha_pub">Fecha de Publicación</string>
+	<string name="descripcion">Descripción</string>
 </resources>

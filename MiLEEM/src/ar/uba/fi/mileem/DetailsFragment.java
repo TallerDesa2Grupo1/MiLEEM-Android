@@ -14,6 +14,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import ar.uba.fi.mileem.custom.CustomCheckBox;
 import ar.uba.fi.mileem.custom.CustomLabelValue;
 import ar.uba.fi.mileem.models.PublicationFullResult;
@@ -105,6 +106,13 @@ public class DetailsFragment extends Fragment implements IPublicationDataObserve
 				}
 			}else{
 				layout.setVisibility(View.GONE);
+			}
+			
+			String description = p.getPublicationDescription();
+			if(description.length()>1){
+				((TextView)v.findViewById(R.id.descripcion)).setText(description);
+			}else{
+				v.findViewById(R.id.description_layout).setVisibility(View.GONE);
 			}
 			
    		}

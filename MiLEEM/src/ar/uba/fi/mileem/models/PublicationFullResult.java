@@ -111,6 +111,9 @@ public LatLng getCoords(){
 	public String getCurrency() {
 		return publication.optString("currency");
 	}
+	public String getPublicationDescription() {
+		return publication.optString("description");
+	}
 
 	public Boolean hasBalcony() {
 		return publication.optBoolean("balcony");
