@@ -43,7 +43,7 @@ public class MapFragment extends SupportMapFragment implements IPublicationDataO
 			if(p!= null){
 				getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(p.getCoords(), 14));
 				getMap().addMarker(
-						new MarkerOptions().title(p.getContactAddress()).position(p.getCoords()));
+						new MarkerOptions().title(p.getAddress()).position(p.getCoords()));
 			}	
 		}
 	}

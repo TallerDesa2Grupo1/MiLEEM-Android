@@ -51,30 +51,23 @@ public class PublicationFullResult extends PublicationResult {
 	 */
 
 	public String getVideoUrl() {
-		return "https://www.youtube.com/watch?v=FIn59oZ9buU";
+		return publication.optString("video", "");
 	}
 
 public LatLng getCoords(){
-	return new LatLng(-34.6204561,-58.365235);
+	return new LatLng(Double.parseDouble(publication.optString("lat", "0.0")),Double.parseDouble(publication.optString("lng", "0.0")));
 }
 	public String getVideoCode() {
 		URI uri;
 		try {
 			uri = new URI(getVideoUrl());
-			return uri.getRawQuery().replace("v=", "");
+			String query = uri.getRawQuery();
+			return (query!= null)?query.replace("v=", ""):"";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 
 		return "";
-	}
-
-	public String getStreet() {
-		return publication.optString("street");
-	}
-
-	public String getStNumber() {
-		return publication.optString("st_number");
 	}
 
 	public String getNeighborhoodId() {
@@ -265,16 +258,7 @@ public LatLng getCoords(){
 		return publication.optString("property_type");
 	}
 
-	public String getPublicationAddress() {
-
-		return publication.optString("address");
-	}
-
-	@Override
-	public String getContactAddress() {
-
-		return contact.optString("address");
-	}
+	
 
 	public String getContactName() {
 

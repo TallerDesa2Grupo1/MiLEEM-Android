@@ -116,7 +116,7 @@ public class PublicationActivity extends FragmentActivity  {
 			findPublicationInfo();
 			return true;
 		case R.id.action_share:
-		//	shareTextUrl();
+			shareTextUrl();
 			return true;
 		case R.id.action_chart:
 			//showCharts();
@@ -137,7 +137,7 @@ public class PublicationActivity extends FragmentActivity  {
 		PublicationFullResult p = getPublication();
 		if (p != null) {
 			String text = p.getPropertyType() + " | " + p.getOperationType()
-					+ " | " + p.getContactAddress() + " " + p.getDescription();
+					+ " | " + p.getAddress() + " " + p.getDescription();
 			String link = Config.PUBLIC_VIEW_URL + p.getId();
 			Intent sharingIntent = new Intent(
 					android.content.Intent.ACTION_SEND);
@@ -183,13 +183,13 @@ public class PublicationActivity extends FragmentActivity  {
 	}
 
 	private void notifyFrames() {
-//		if(!getPublication().isHighlighted()){
-//			AdRequest adRequest = new AdRequest.Builder().build();
-//	    	adView.loadAd(adRequest);
-//		}else{
+		if(!getPublication().isHighlighted()){
+			AdRequest adRequest = new AdRequest.Builder().build();
+	    	adView.loadAd(adRequest);
+		}else{
 			adView.destroy();
 			adView.setVisibility(View.GONE);
-		//}
+		}
 		
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		for (Fragment fragment : fragments) {

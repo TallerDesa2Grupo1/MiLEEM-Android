@@ -58,7 +58,7 @@ public class DetailsFragment extends Fragment implements IPublicationDataObserve
 			item = (CustomLabelValue) v.findViewById(R.id.property_type);
 			item.setValue( p.getPropertyType());
 			item = (CustomLabelValue) v.findViewById(R.id.address);
-			item.setValue( p.getPublicationAddress());
+			item.setValue( p.getAddress());
 			item = (CustomLabelValue) v.findViewById(R.id.neighborhood);
 			item.setValue( p.getNeighborhood());
 			item = (CustomLabelValue) v.findViewById(R.id.covered_area);
