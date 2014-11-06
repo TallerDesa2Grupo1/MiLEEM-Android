@@ -201,8 +201,8 @@ public class SearchActivity extends ListActivity {
 		switch (item.getItemId()) {
 		
 		case R.id.action_chart:
-	return true;	//	showCharts();
-					//break;
+			showCharts();
+			break;
 		case R.id.action_refresh:
 			resetSearch();
 			return true;

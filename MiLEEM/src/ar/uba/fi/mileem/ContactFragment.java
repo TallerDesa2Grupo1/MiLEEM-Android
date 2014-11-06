@@ -22,7 +22,7 @@ public class ContactFragment extends Fragment implements IPublicationDataObserve
 		setRetainInstance(true);
 		View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
 		rootView.findViewById(R.id.contact_layout).setVisibility(View.GONE);
-	//	setViewInfo(rootView);
+		setViewInfo(rootView);
 		return rootView;
 	}
 
@@ -62,6 +62,6 @@ public class ContactFragment extends Fragment implements IPublicationDataObserve
 	
 	
 	public void onPublicationData() {
-	//	setViewInfo(getView());		
+		setViewInfo(getView());		
 	}
 }

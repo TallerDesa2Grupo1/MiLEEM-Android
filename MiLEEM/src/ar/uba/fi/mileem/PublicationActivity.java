@@ -119,7 +119,7 @@ public class PublicationActivity extends FragmentActivity  {
 			shareTextUrl();
 			return true;
 		case R.id.action_chart:
-			//showCharts();
+			showCharts();
 			return true;
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
