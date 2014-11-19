@@ -42,14 +42,17 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/contact_home_phone_layout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginBottom="@dimen/feed_item_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/bg_parent_rounded_corner"
             android:orientation="vertical"
             android:paddingBottom="@dimen/feed_item_padding_top_bottom"
-            android:paddingTop="@dimen/feed_item_padding_top_bottom" >
+            android:paddingTop="@dimen/feed_item_padding_top_bottom"
+            android:visibility="gone" >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -89,16 +92,17 @@
         </LinearLayout>
 
                <LinearLayout
+                   android:id="@+id/contact_mobile_phone_layout"
                    android:layout_width="fill_parent"
                    android:layout_height="fill_parent"
                    android:layout_marginBottom="@dimen/feed_item_margin"
                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                   android:layout_marginTop="@dimen/feed_item_margin"
                    android:background="@drawable/bg_parent_rounded_corner"
                    android:orientation="vertical"
                    android:paddingBottom="@dimen/feed_item_padding_top_bottom"
-                   android:paddingTop="@dimen/feed_item_padding_top_bottom" >
+                   android:paddingTop="@dimen/feed_item_padding_top_bottom"
+                   android:visibility="gone" >
 
             <RelativeLayout
                 android:layout_width="fill_parent"

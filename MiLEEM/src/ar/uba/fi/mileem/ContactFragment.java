@@ -38,7 +38,7 @@ public class ContactFragment extends Fragment implements IPublicationDataObserve
 					PublicationFullResult p =  a.getPublication();
 					Intent intent = new Intent(Intents.Insert.ACTION);
 					intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-					intent.putExtra(Intents.Insert.NAME, p.getContactName());
+					intent.putExtra(Intents.Insert.NAME, p.getContactName() + " (MiLEEM)");
 					intent.putExtra(Intents.Insert.EMAIL, p.getContactEmail());
 					intent.putExtra(Intents.Insert.SECONDARY_PHONE, p.getHomePhone());
 					intent.putExtra(Intents.Insert.PHONE, p.getMobilePhone());
@@ -49,8 +49,12 @@ public class ContactFragment extends Fragment implements IPublicationDataObserve
 			contact_name.setText(p.getContactName());
 			TextView home_phone = (TextView) v.findViewById(R.id.contact_home_phone);
 			home_phone.setText(p.getHomePhone());
+			v.findViewById(R.id.contact_home_phone_layout).setVisibility((p.getHomePhone().equals(""))?View.GONE:View.VISIBLE);
+
 			TextView mobile_phone = (TextView) v.findViewById(R.id.contact_mobile_phone);
 			mobile_phone.setText(p.getMobilePhone());
+			v.findViewById(R.id.contact_mobile_phone_layout).setVisibility((p.getMobilePhone().equals(""))?View.GONE:View.VISIBLE);
+			
 			TextView email = (TextView) v.findViewById(R.id.contact_email);
 			email.setText(p.getContactEmail());
 			
